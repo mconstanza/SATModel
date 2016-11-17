@@ -3,6 +3,8 @@
 var express = require('express'),
 bodyParser = require('body-parser'),
 methodOR = require('method-override');
+var passport = require('passport')
+var session = require('express-session')  
 
 var app = express();
 
