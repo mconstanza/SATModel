@@ -4,7 +4,7 @@ var express = require('express'),
 bodyParser = require('body-parser'),
 methodOR = require('method-override');
 var passport = require('passport')
-var session = require('express-session')  
+var session = require('express-session')
 
 var app = express();
 
@@ -36,12 +36,14 @@ var models  = require('./models');
 var sequelizeConnection = models.sequelize
 /////////////////////////////////////////////////////////////////////////////////////////////
 // We run this query so that we can drop our tables even though they have foreign keys
-sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
+// sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
+//
+// // a) sync the tables
+// .then(function(){
+// 	return sequelizeConnection.sync({force:true})
+// })
 
-// a) sync the tables
-.then(function(){
-	return sequelizeConnection.sync({force:true})
-})
+sequelizeConnection.sync();
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // handlebars for templating
@@ -52,14 +54,14 @@ app.engine('handlebars', hb({
 app.set('view engine', 'handlebars');
 
 // Router ///////////////////////////////////////////////////////////////
-var routes = require('./controllers/main.js');
-app.use('/', routes);
-
-var users = require('./controllers/user_controller.js');
-app.use('/users', users);
-
-var tests = require('./controllers/test_controller.js');
-app.use('/tests', tests);
+// var routes = require('./controllers/main.js');
+// app.use('/', routes);
+//
+// var users = require('./controllers/user_controller.js');
+// app.use('/users', users);
+//
+// var tests = require('./controllers/test_controller.js');
+// app.use('/tests', tests);
 
 // Server Ready ////////////////////////////////////////////////////////////
 var port = process.env.PORT || 3000;
