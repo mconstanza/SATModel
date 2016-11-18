@@ -1,0 +1,20 @@
+img {
+  max-width: 100%;
+}
+
+#logo {
+  max-width: 100%;
+  margin-top: 20%;
+  margin-bottom: 10px;
+  max-height: 100%;
+}
+
+.column{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.row{
+  height: 500px;
+}
+
