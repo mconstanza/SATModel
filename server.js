@@ -5,22 +5,34 @@ bodyParser = require('body-parser'),
 methodOR = require('method-override');
 var passport = require('passport')
 var session = require('express-session')
+var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
+
 
 var app = express();
 
 // public director for static content
 app.use(express.static(process.cwd() + '/public'));
 
-// Express Session
+// Express Session for passport
 app.use(session({
 	secret: 'secret',
 	saveUninitialized: true,
 	resave: true
 }));
 
+
 // Passport Init
+
+require('./config/passport')(passport); // pass passport for configuration
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(flash()); // connect-flash for flash messages stored in session
+
+// cookieParser middleware
+app.use(cookieParser()); // reads cookie for auth
 
 // bodyParser middleware
 app.use(bodyParser.json()); // for parsing application/json
@@ -57,8 +69,8 @@ app.set('view engine', 'handlebars');
 // var routes = require('./controllers/main.js');
 // app.use('/', routes);
 //
-// var users = require('./controllers/user_controller.js');
-// app.use('/users', users);
+var users = require('./controllers/user_controller.js');
+app.use('/', users);
 //
 // var tests = require('./controllers/test_controller.js');
 // app.use('/tests', tests);
@@ -66,3 +78,9 @@ app.set('view engine', 'handlebars');
 // Server Ready ////////////////////////////////////////////////////////////
 var port = process.env.PORT || 3000;
 app.listen(port);
+console.log('listening on ' + port)
+
+// catch-all handlebars
+app.use(function(err, req, res, next) {
+    console.log(err);
+});
