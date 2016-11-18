@@ -21,6 +21,7 @@ app.use(session({
 	resave: true
 }));
 
+
 // Passport Init
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -78,3 +79,8 @@ app.use('/', users);
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('listening on ' + port)
+
+// catch-all handlebars
+app.use(function(err, req, res, next) {
+    console.log(err);
+});

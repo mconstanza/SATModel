@@ -1,10 +1,12 @@
 'use strict';
 
+var bcrypt = require('bcrypt-nodejs');
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    password: DataTypes.STRING,
+    password: DataTypes.STRING.BINARY,
     email: DataTypes.STRING,
 
     facebookID: DataTypes.STRING,
@@ -25,10 +27,14 @@ module.exports = function(sequelize, DataTypes) {
       // may need ot use instanceMethods for these
       generateHash: function(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-      },
+      }
+    },
+
+    instanceMethods: {
 
       validPassword: function(password) {
-        return bcrypt.compareSync(password, this.local.password);
+        console.log('this.password: ' + this.password)
+        return bcrypt.compareSync(password, this.password);
       }
     }
   });

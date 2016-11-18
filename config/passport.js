@@ -6,6 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 // load user models
 
 var models = require('../models');
+var User = require('../models/user')
 
 module.exports = function(passport) {
 
@@ -21,9 +22,14 @@ module.exports = function(passport) {
     });
 
     // deserialize the user
-    passport.deserializeUser(function(id, callback) { // may want to go back to deprecated 'done' if this doesn't work
+    passport.deserializeUser(function(id, done) { // may want to go back to deprecated 'done' if this doesn't work
       models.User.findById(id)
-      .then(callback(err, user))
+      .then(function(user){
+        if (user === null) {
+          done(new Error('Wrong user id.'))
+        }
+        done(null, user)
+      })
     })
 
 // =========================================================================
@@ -37,7 +43,7 @@ module.exports = function(passport) {
       passwordFeield: 'password',
       passReqToCallback: true // allows us to pass back the entire request to callback
     },
-    function(req, email, password) {
+    function(req, email, password, done) {
       // asynchronous
       // User.findOne wont fire unless data is sent back
       process.nextTick(function() {
@@ -45,32 +51,79 @@ module.exports = function(passport) {
       // find a user whose email is the same as the form's email
       // we are checking to see if the user trying to login already exists
 
-        models.User.findOne({'local.email' : email })
-        .then(function(err, user) {
-          // return error if any
-          if (err){
-            throw err;
-          }
-          console.log('made it past error')
+        models.User.findOne({where: {'email' : email }})
+        .then(function(user) {
+          // ERROR IS NOT PASSED IN THIS FUNCTION
+
           // check to see if there's already a user with that email
           if (user) {
             // need code for if email is taken
-            console.log('email is already taken')
+            return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
           }else {
 
             // if no user with that email
             // create the user
-            models.User.create(
+            var newUser = models.User.build(
               {
               email: email,
-              password: password
+              password: models.User.generateHash(password)
               }
-            );
-
-            console.log('user created')
+            )
+            newUser.save().then(function(err){
+              if(err){
+                throw err;
+              }
+              done(null, newUser);
+            })
+            .catch(function(err) {
+              return done(null, err);
+            })
           }
         });
       });
     }));
 
-}
+    // =========================================================================
+    // LOCAL LOGIN =============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
+
+    passport.use('local-login', new LocalStrategy({
+      // by default, local strategy uses username and password, we will override with email
+        usernameField : 'email',
+        passwordField : 'password',
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+      function(req, email, password, done) {
+
+        // find a user whose email is the same as the form's email to see
+        // if the user logging in exists
+        models.User.findOne({ where: {'email' : email}})
+        .then(function(user) {
+          console.log('user: ' + user)
+          console.log('password: ' + user.password)
+
+          console.log(user.validPassword(password))
+          // if (err)
+          //   console.log('error')
+          //   return done(err);
+
+          // if no user is found, return the message
+          if (!user){
+          console.log('no user')
+            return done(null, false, {message: 'No User found.'});
+          }
+          // if the user is found but password is wrong
+          else if (!user.validPassword(password)){
+            console.log('invalid password')
+            return done(null, false, {message:'Oops! Wrong password.'});
+          }
+          else{
+            // all is good
+            console.log('made it to the return')
+            return done(null, user);
+          }
+        });
+    }));
+};
