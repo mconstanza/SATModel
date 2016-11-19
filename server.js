@@ -54,14 +54,14 @@ app.engine('handlebars', hb({
 app.set('view engine', 'handlebars');
 
 // Router ///////////////////////////////////////////////////////////////
-// var routes = require('./controllers/main.js');
-// app.use('/', routes);
+var routes = require('./controllers/practice_test_controller.js');
+app.use('/', routes);
 //
-// var users = require('./controllers/user_controller.js');
-// app.use('/users', users);
+// var users = require('./controllers/question_controller.js');
+// app.use('/question', users);
 //
-// var tests = require('./controllers/test_controller.js');
-// app.use('/tests', tests);
+var tests = require('./controllers/student_answer_controller.js');
+app.use('/student', tests);
 
 // Server Ready ////////////////////////////////////////////////////////////
 var port = process.env.PORT || 3000;
