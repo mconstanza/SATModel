@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         PracticeTest.hasMany(models.Question),
-        PracticeTest.belongsToMany(models.StudentAnswer, { through: StudentResponse })
+        PracticeTest.belongsToMany(models.StudentAnswer, { through: 'StudentResponse' })
       }
     }
   });

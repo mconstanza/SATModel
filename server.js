@@ -43,7 +43,17 @@ var sequelizeConnection = models.sequelize
 // 	return sequelizeConnection.sync({force:true})
 // })
 
-sequelizeConnection.sync();
+// sequelizeConnection.sync({force: true})
+
+.then(function(){
+	return models.User.create({
+		firstName: "Blah",
+		lastName: "Foo",
+		userName: "BlahFoo",
+		password: "random",
+		email: "blahfoo@random.com"
+	})
+});
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // handlebars for templating
