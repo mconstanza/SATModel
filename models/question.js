@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: true},
     subScore: {type: DataTypes.STRING,
                allowNull: true},
-    section: DataTypes.STRING
+    section: DataTypes.STRING,
+    questionType: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
