@@ -19,11 +19,37 @@
 <body>
 
 <div class= "row">
-    <div class="col-lg-4 column"><img class="img-responsive animated fadeInLeft" id="logo" src="assets/images/logo.jpg"></div>
-    <div class="col-lg-8 column">
+    <div class="col-lg-4 column" id="colLeft">
+    
+    <img class="img-responsive animated fadeInLeft" id="logo" src="assets/images/logo.jpg">
+    
+        <div class="row" id="startButtonHolder">
+            <div class= "col-lg-4"></div>
+            <div class="col-lg-4 text-center animated fadeInLeft">
+            
+            <button id="startButton" action="/input" method="get">Begin</button>
+
+            </div>
+            <div class= "col-lg-4"></div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="col-lg-8 column" id="colRight">
             <img class="img-responsive animated fadeInRight" src="assets/images/landing.jpg" alt="">
     </div>
 </div>
+
+<script type = "text/javascript">
+$("#startButton").on("click", function(){
+    $("#colLeft").addclass("animated fadeOutLeft")
+    $("#colRight").addclass("animated fadeOutRight")
+})
+
+</script>
 
 </body>
 </html>
