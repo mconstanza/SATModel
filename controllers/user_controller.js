@@ -12,8 +12,8 @@ var router = express.Router();
 router.get('/users', function (req, res) {
   models.User.findAll()
   .then(function(users){
-    console.log(users)
-    res.send(users)
+    console.log(users);
+    res.send(users);
   });
 });
 
@@ -23,7 +23,7 @@ router.get('/users', function (req, res) {
 // render a user's profile -- REQUIRES AUTH
 router.get('/profile', isLoggedIn, function (req, res) {
   // replace with handlebars stuff
-  res.send('you made it to the profile page!')
+  res.send('you made it to the profile page!');
 });
 //=============================================
 // LOGIN
@@ -31,7 +31,7 @@ router.get('/profile', isLoggedIn, function (req, res) {
 // goes to login page
 router.get('/login', function (req, res) {
   // remember to incorporate flash messages here
-  res.sendFile(process.cwd() + '/public/test_login.html')
+  res.sendFile(process.cwd() + '/public/test_login.html');
 });
 
 // user submits login data
@@ -48,7 +48,7 @@ router.post('/login', passport.authenticate('local-login', {
 // goes to sign up page
 router.get('/signup', function (req, res) {
   // remember to incorporate flash messages here
-  res.sendFile(process.cwd() + '/public/test_signup.html')
+  res.sendFile(process.cwd() + '/public/test_signup.html');
 });
 
 // user submits sign up data
@@ -76,7 +76,7 @@ router.get('/logout', function(req, res) {
   }
 
 router.get('/', function (req, res) {
-  res.sendFile(process.cwd() + '/public/landing.html')
+  res.sendFile(process.cwd() + '/public/landing.html');
 });
 
 

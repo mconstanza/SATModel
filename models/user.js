@@ -22,21 +22,20 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         User.hasMany(models.StudentAnswer), {through: 'UserAnswers'}
-
       },
       // may need ot use instanceMethods for these
       generateHash: function(password) {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
       }
     },
 
     instanceMethods: {
 
       validPassword: function(password) {
-        console.log('this.password: ' + this.password)
+        console.log('this.password: ' + this.password);
         return bcrypt.compareSync(password, this.password);
       }
     }
   });
-  return User
+  return User;
 };

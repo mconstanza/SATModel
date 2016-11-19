@@ -3,8 +3,8 @@
 var express = require('express'),
 bodyParser = require('body-parser'),
 methodOR = require('method-override');
-var passport = require('passport')
-var session = require('express-session')
+var passport = require('passport');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
 
@@ -45,7 +45,7 @@ app.use(methodOR('_method'));
 var models  = require('./models');
 
 // extract our sequelize connection from the models object, to avoid confusion
-var sequelizeConnection = models.sequelize
+var sequelizeConnection = models.sequelize;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // We run this query so that we can drop our tables even though they have foreign keys
 // sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
@@ -78,7 +78,7 @@ app.use('/', users);
 // Server Ready ////////////////////////////////////////////////////////////
 var port = process.env.PORT || 3000;
 app.listen(port);
-console.log('listening on ' + port)
+console.log('listening on ' + port);
 
 // catch-all handlebars
 app.use(function(err, req, res, next) {

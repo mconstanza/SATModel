@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 // load user models
 
 var models = require('../models');
-var User = require('../models/user')
+var User = require('../models/user');
 
 module.exports = function(passport) {
 
@@ -26,11 +26,11 @@ module.exports = function(passport) {
       models.User.findById(id)
       .then(function(user){
         if (user === null) {
-          done(new Error('Wrong user id.'))
+          done(new Error('Wrong user id.'));
         }
-        done(null, user)
-      })
-    })
+        done(null, user);
+      });
+    });
 
 // =========================================================================
 // LOCAL SIGNUP ============================================================
@@ -53,12 +53,11 @@ module.exports = function(passport) {
 
         models.User.findOne({where: {'email' : email }})
         .then(function(user) {
-          // ERROR IS NOT PASSED IN THIS FUNCTION
 
           // check to see if there's already a user with that email
           if (user) {
             // need code for if email is taken
-            return done(null, false, req.flash('signupMessage', 'That email is already taken.'))
+            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
           }else {
 
             // if no user with that email
@@ -68,7 +67,7 @@ module.exports = function(passport) {
               email: email,
               password: models.User.generateHash(password)
               }
-            )
+            );
             newUser.save().then(function(err){
               if(err){
                 throw err;
@@ -77,7 +76,7 @@ module.exports = function(passport) {
             })
             .catch(function(err) {
               return done(null, err);
-            })
+            });
           }
         });
       });
@@ -101,27 +100,27 @@ module.exports = function(passport) {
         // if the user logging in exists
         models.User.findOne({ where: {'email' : email}})
         .then(function(user) {
-          console.log('user: ' + user)
-          console.log('password: ' + user.password)
+          console.log('user: ' + user);
+          console.log('password: ' + user.password);
 
-          console.log(user.validPassword(password))
+          console.log(user.validPassword(password));
           // if (err)
           //   console.log('error')
           //   return done(err);
 
           // if no user is found, return the message
           if (!user){
-          console.log('no user')
+          console.log('no user');
             return done(null, false, {message: 'No User found.'});
           }
           // if the user is found but password is wrong
           else if (!user.validPassword(password)){
-            console.log('invalid password')
+            console.log('invalid password');
             return done(null, false, {message:'Oops! Wrong password.'});
           }
           else{
             // all is good
-            console.log('made it to the return')
+            console.log('made it to the return');
             return done(null, user);
           }
         });
