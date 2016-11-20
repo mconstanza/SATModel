@@ -7,13 +7,15 @@
         
             <tbody>
             {{#each question}}
-                {{if }}
-                    {{>}}
-                
+                {{#if this.questionType == "MC"}}
+                    {{>input/mulchoice}}
+
+                {{#if this.questionType == "Open" }}
+                    {{>input/openAns}}
             {{/each}}
             
             </tbody>
-                
+                }
         </table>
 
         </div>
