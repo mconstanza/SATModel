@@ -2,26 +2,78 @@
 <div class = "container">
     <div class= "row">
         <!--column 1-->
-        <div class="col-lg-4 column">
+        <div class="col-lg-3 column">
         <table class="questions-table" align="left">
         
             <tbody>
-            {{#each question}}
-                {{#if this.questionType == "MC"}}
+            {{#each questions}}
+                {{#if this.questionType == "MC" && this.Section == "Evidence-Based Reading"}}
                     {{>input/mulchoice}}
 
-                {{#if this.questionType == "Open" }}
+                {{#if this.questionType == "Open" && this.Section =="Evidence-Based Reading"}}
                     {{>input/openAns}}
             {{/each}}
             
             </tbody>
-                }
-        </table>
-
-        </div>
-        <div class="col-lg-4 column">
             
+        </table>
+        
         </div>
+        
+        <div class="col-lg-3 column">
+        <table class="questions-table" align="left">
+        
+            <tbody>
+            {{#each questions}}
+                {{#if this.questionType == "MC" && this.Section =="Writing and Language"}}
+                    {{>input/mulchoice}}
+
+                {{#if this.questionType == "Open" && this.Section =="Writing and Language" }}
+                    {{>input/openAns}}
+            {{/each}}
+            
+            </tbody>
+            
+        </table>
+        
+        </div>
+
+        <div class="col-lg-3 column">
+        <table class="questions-table" align="left">
+        
+            <tbody>
+            {{#each questions}}
+                {{#if this.questionType == "MC" && this.Section =="Math1"}}
+                    {{>input/mulchoice}}
+
+                {{#if this.questionType == "Open" && this.Section =="Math1" }}
+                    {{>input/openAns}}
+            {{/each}}
+            
+            </tbody>
+            
+        </table>
+        
+        </div>
+
+        <div class="col-lg-3 column">
+        <table class="questions-table" align="left">
+        
+            <tbody>
+            {{#each questions}}
+                {{#if this.questionType == "MC"&& this.Section =="Math2"}}
+                    {{>input/mulchoice}}
+
+                {{#if this.questionType == "Open" && this.Section =="Math2" }}
+                    {{>input/openAns}}
+            {{/each}}
+            
+            </tbody>
+            
+        </table>
+        
+        </div>
+
     </div>
 </div>
 
