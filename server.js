@@ -61,9 +61,19 @@ sequelizeConnection.sync();
 // handlebars for templating
 var hb = require('express-handlebars');
 app.engine('handlebars', hb({
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+	helpers: {
+		if_eq: function(a, b, c, d, opts) {
+		  if (a == b && c == d) {
+		      return opts.fn(this);
+		  } else {
+		      return opts.inverse(this);
+		  }
+		}
+	}
 }));
 app.set('view engine', 'handlebars');
+
 
 // Router ///////////////////////////////////////////////////////////////
 // var routes = require('./controllers/main.js');
@@ -72,8 +82,8 @@ app.set('view engine', 'handlebars');
 var users = require('./controllers/user_controller.js');
 app.use('/', users);
 //
-// var tests = require('./controllers/test_controller.js');
-// app.use('/tests', tests);
+var tests = require('./controllers/test_controller.js');
+app.use('/test', tests);
 
 // Server Ready ////////////////////////////////////////////////////////////
 var port = process.env.PORT || 3000;

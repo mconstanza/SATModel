@@ -16,7 +16,6 @@ router.get('/users', function (req, res) {
     res.send(users);
   });
 });
-
 //=============================================
 // USER PROFILE
 //=============================================
@@ -41,6 +40,21 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash: true // allow flash messages
   })
 );
+
+
+router.get('/test', function (req, res) {
+  models.Question.findAll({where: { practiceTestId: 1}})
+  .then(function(questions){
+
+    var hbsObj = {questions:questions};
+    res.render('input', hbsObj);
+  });
+});
+
+
+
+
+
 
 //=============================================
 // SIGNUP

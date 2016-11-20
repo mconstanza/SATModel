@@ -1,82 +1,114 @@
-<body>
+<script type='text/javascript'>
+
+</script>
 <div class = "container">
     <div class= "row">
         <!--column 1-->
         <div class="col-lg-3 column">
-        <table class="questions-table" align="left">
-        
-            <tbody>
-            {{#each questions}}
-                {{#if this.questionType == "MC" && this.Section == "Evidence-Based Reading"}}
-                    {{>input/mulchoice}}
+          <table class="questions-table" align="left">
 
-                {{#if this.questionType == "Open" && this.Section =="Evidence-Based Reading"}}
-                    {{>input/openAns}}
-            {{/each}}
-            
-            </tbody>
-            
-        </table>
-        
-        </div>
-        
-        <div class="col-lg-3 column">
-        <table class="questions-table" align="left">
-        
-            <tbody>
+            {{!-- <tbody> --}}
             {{#each questions}}
-                {{#if this.questionType == "MC" && this.Section =="Writing and Language"}}
-                    {{>input/mulchoice}}
 
-                {{#if this.questionType == "Open" && this.Section =="Writing and Language" }}
-                    {{>input/openAns}}
+
+                {{#if_eq this.questionType "MC" this.section "Evidence-Based Reading"}}
+                    {{> input/mulchoice}}
+
+                {{/if_eq}}
+
+                {{#if_eq this.questionType "Open" this.section "Evidence-Based Reading"}}
+
+                    {{> input/openAns}}
+
+                {{/if_eq}}
+
             {{/each}}
-            
+
             </tbody>
-            
+
         </table>
-        
+
         </div>
 
         <div class="col-lg-3 column">
-        <table class="questions-table" align="left">
-        
-            <tbody>
-            {{#each questions}}
-                {{#if this.questionType == "MC" && this.Section =="Math1"}}
-                    {{>input/mulchoice}}
+          <table class="questions-table" align="left">
 
-                {{#if this.questionType == "Open" && this.Section =="Math1" }}
-                    {{>input/openAns}}
+            {{!-- <tbody> --}}
+            {{#each questions}}
+
+
+                {{#if_eq this.questionType "MC" this.section "Writing and Language"}}
+                    {{> input/mulchoice}}
+
+                {{/if_eq}}
+
+                {{#if_eq this.questionType "Open" this.section "Writing and Language"}}
+
+                    {{> input/openAns}}
+
+                {{/if_eq}}
+
             {{/each}}
-            
+
             </tbody>
-            
+
         </table>
-        
+
         </div>
 
         <div class="col-lg-3 column">
-        <table class="questions-table" align="left">
-        
-            <tbody>
-            {{#each questions}}
-                {{#if this.questionType == "MC"&& this.Section =="Math2"}}
-                    {{>input/mulchoice}}
+          <table class="questions-table" align="left">
 
-                {{#if this.questionType == "Open" && this.Section =="Math2" }}
-                    {{>input/openAns}}
+            {{!-- <tbody> --}}
+            {{#each questions}}
+
+
+                {{#if_eq this.questionType "MC" this.section "Math1"}}
+                    {{> input/mulchoice}}
+
+                {{/if_eq}}
+
+                {{#if_eq this.questionType "Open" this.section "Math1"}}
+
+                    {{> input/openAns}}
+
+                {{/if_eq}}
+
             {{/each}}
-            
+
             </tbody>
-            
+
         </table>
-        
+
         </div>
+
+        <div class="col-lg-3 column">
+          <table class="questions-table" align="left">
+
+            {{!-- <tbody> --}}
+            {{#each questions}}
+
+
+                {{#if_eq this.questionType "MC" this.section "Math2"}}
+                    {{> input/mulchoice}}
+
+                {{/if_eq}}
+
+                {{#if_eq this.questionType "Open" this.section "Math2"}}
+
+                    {{> input/openAns}}
+
+                {{/if_eq}}
+
+            {{/each}}
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+
 
     </div>
 </div>
-
-
-
-</body>
