@@ -1,0 +1,16 @@
+h1 {
+	text-align: center;
+}
+
+p {
+	text-align: right;
+}
+
+.form-control{
+	border-radius: 20px;
+}
+
+.btn{
+	border-radius: 20px;
+	background-color: rgb(122,144,141);
+}
