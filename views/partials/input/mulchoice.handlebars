@@ -1,9 +1,9 @@
 <tr>
-    <td class="question-number"></td>
-    <td class="question-choices" id="s1q1">
-        <button class="ansbutton" id="s1q1a">A</button>
-        <button class="ansbutton" id="s1q1b">B</button>
-        <button class="ansbutton" id="s1q1c">C</button>
-        <button class="ansbutton" id="s1q1d">D</button>
+    <td class="question-number" >{{this.number}}</td>
+    <td class="question-choices" data-ans=" " data-section ="{{this.section}}" data-number= {{this.number}} id ="{{this.section}}{{this.number}}">
+        <button class="ansbutton" id="{{this.section}}{{this.number}}A">A</button>
+        <button class="ansbutton" id="{{this.section}}{{this.number}}B">B</button>
+        <button class="ansbutton" id="{{this.section}}{{this.number}}C">C</button>
+        <button class="ansbutton" id="{{this.section}}{{this.number}}D">D</button>
     </td>
 </tr>

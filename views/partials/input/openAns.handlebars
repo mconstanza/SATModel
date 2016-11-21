@@ -1,7 +1,7 @@
 <tr>
-    <td class="question-number"></td>
-    <td class="question-choices" id="">
-      <select id="" class="gridin-dropdown">
+    <td class="question-number">{{this.number}}</td>
+    <td class="question-choices" data-ans=" " data-section ="{{this.section}}" data-number= {{this.number}} id="{{this.section}}{{this.number}}">
+      <select id="{{this.section}}{{this.number}}dropdown1" class="gridin-dropdown">
 
         <option value=" " selected=""></option>
 
@@ -28,7 +28,7 @@
         <option value="9">9</option>
 
       </select>
-      <select id="" class="">
+      <select id="{{this.section}}{{this.number}}dropdown2" class="gridin-dropdown">
 
         <option value=" " selected=""></option>
 
@@ -57,7 +57,7 @@
         <option value="9">9</option>
 
       </select>
-      <select id="" class="">
+      <select id="{{this.section}}{{this.number}}dropdown3" class="gridin-dropdown">
 
         <option value=" " selected=""></option>
 
@@ -87,7 +87,7 @@
 
       </select>
              
-      <select id="" class="">
+      <select id="{{this.section}}{{this.number}}dropdown4" class="gridin-dropdown">
 
         <option value=" " selected=""></option>
 
