@@ -22,7 +22,7 @@ router.get('/users', function (req, res) {
 // render a user's profile -- REQUIRES AUTH
 router.get('/profile', isLoggedIn, function (req, res) {
   // replace with handlebars stuff
-  res.send('you made it to the profile page!');
+  res.render('user');
 });
 //=============================================
 // LOGIN
