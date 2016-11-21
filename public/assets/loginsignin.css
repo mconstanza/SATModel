@@ -8,12 +8,16 @@ p {
 
 .form-control{
 	border-radius: 20px;
+	border-width: 5px;
+	border-color: rgb(122,144,141);
+
+
 }
 
 .btn{
 	font-size: 20px;
-	border-radius: 20px;
 	color: rgb(122,144,141);
+	border-radius: 20px;
 	border-color: rgb(122,144,141);
 	border-width: 5px;
 	background-color: white;
