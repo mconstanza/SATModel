@@ -11,6 +11,10 @@ p {
 }
 
 .btn{
+	font-size: 20px;
 	border-radius: 20px;
-	background-color: rgb(122,144,141);
+	color: rgb(122,144,141);
+	border-color: rgb(122,144,141);
+	border-width: 5px;
+	background-color: white;
 }
