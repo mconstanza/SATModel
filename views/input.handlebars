@@ -1,9 +1,9 @@
-<script type='text/javascript'>
+<script src= "../assets/js/submit.js"></script>
 
-</script>
 <div class = "container">
     <div class= "row">
         <!--column 1-->
+        
         <div class="col-lg-3 column">
           <table class="questions-table" align="left">
 
@@ -11,12 +11,12 @@
             {{#each questions}}
 
 
-                {{#if_eq this.questionType "MC" this.section "Evidence-Based Reading"}}
+                {{#if_eq this.questionType "MC" this.section "Evidence-Based-Reading"}}
                     {{> input/mulchoice}}
 
                 {{/if_eq}}
 
-                {{#if_eq this.questionType "Open" this.section "Evidence-Based Reading"}}
+                {{#if_eq this.questionType "Open" this.section "Evidence-Based-Reading"}}
 
                     {{> input/openAns}}
 
@@ -37,12 +37,12 @@
             {{#each questions}}
 
 
-                {{#if_eq this.questionType "MC" this.section "Writing and Language"}}
+                {{#if_eq this.questionType "MC" this.section "Writing-and-Language"}}
                     {{> input/mulchoice}}
 
                 {{/if_eq}}
 
-                {{#if_eq this.questionType "Open" this.section "Writing and Language"}}
+                {{#if_eq this.questionType "Open" this.section "Writing-and-Language"}}
 
                     {{> input/openAns}}
 
@@ -108,7 +108,16 @@
 
         </div>
 
+    </div>
 
+    <div class = "row">
+    <div class = "col-lg-4">
+    </div>
+    <div class = "col-lg-4 text-center">
+    <button id = "submitForm">Submit!</button>
+    </div>
+    <div class = "col-lg-4">
+    </div>
 
     </div>
 </div>
