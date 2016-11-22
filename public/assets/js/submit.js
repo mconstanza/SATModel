@@ -39,9 +39,10 @@ $(document).on("click", "#submitForm", function() {
     });
 
     // submit post request to /test to submit answersheet
+    // data is score object from server
     $.post('/test', answerSheet, function(data) {
-      console.log(data);
-        console.log("Reading: " + data.readingRaw + '\nWriting: ' + data.writingRaw + '\nMath1: ' + data.math1Raw + '\nMath2: ' + data.math2Raw);
+        console.log(data);
+        $.get('/report', {scores:data});
     });
 });
 

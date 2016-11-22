@@ -3,13 +3,12 @@
 <div class = "container">
     <div class= "row">
         <!--column 1-->
-        
+
         <div class="col-lg-3 column">
           <table class="questions-table" align="left">
 
             {{!-- <tbody> --}}
             {{#each questions}}
-
 
                 {{#if_eq this.questionType "MC" this.section "Evidence-Based-Reading"}}
                     {{> input/mulchoice}}

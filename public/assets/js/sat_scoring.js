@@ -1,6 +1,8 @@
 // import the models in order to pull from the database
 var models = require('../../../models');
 
+var async = require('async');
+
 var readingRaw = 0;
 var writingRaw = 0;
 var math1Raw = 0;
@@ -12,7 +14,6 @@ var scoresToCalculate = 4;
 module.exports = function(answerSheet) {
     // check the answers against thes scores from the database and total the raw scores
 
-    // get all the reading questions
     models.Question.findAll({
             where: ['section=? and PracticeTestId=?', 'Evidence-Based-Reading', 1]
         })
@@ -20,54 +21,45 @@ module.exports = function(answerSheet) {
             var questionArr = questions;
 
             readingCheck(answerSheet, questionArr);
-            console.log("Scores to Calculate: " + scoresToCalculate);
-            if (scoresToCalculate === 0) {
 
-                returnScores();
-            }
-        });
-    // get all the writing questions
-    models.Question.findAll({
-            where: ['section=? and PracticeTestId=?', 'Writing-and-Language', 1]
         })
-        .then(function(questions) {
-            var questionArr = questions;
+        .then(function() {
+            // get all the writing questions
+            models.Question.findAll({
+                    where: ['section=? and PracticeTestId=?', 'Writing-and-Language', 1]
+                })
+                .then(function(questions) {
+                    var questionArr = questions;
 
-            writingCheck(answerSheet, questionArr);
-            console.log("Scores to Calculate: " + scoresToCalculate);
-            if (scoresToCalculate === 0) {
-                returnScores();
-            }
+                    writingCheck(answerSheet, questionArr);
+
+                })
+                .then(function() {
+                    models.Question.findAll({
+                            where: ['section=? and PracticeTestId=?', 'Math1', 1]
+                        })
+                        .then(function(questions) {
+                            var questionArr = questions;
+                            math1Check(answerSheet, questionArr);
+                        })
+                        .then(function() {
+                            models.Question.findAll({
+                                    where: ['section=? and PracticeTestId=?', 'Math2', 1]
+                                })
+                                .then(function(questions) {
+                                    var questionArr = questions;
+                                    math2Check(answerSheet, questionArr);
+                                    returnScores();
+                                });
+                        });
+                });
         });
-
-    models.Question.findAll({
-            where: ['section=? and PracticeTestId=?', 'Math1', 1]
-        })
-        .then(function(questions) {
-            var questionArr = questions;
-
-            math1Check(answerSheet, questionArr);
-            if (scoresToCalculate === 0) {
-                console.log("Scores to Calculate: " + scoresToCalculate);
-                returnScores();
-            }
-        });
-
-    models.Question.findAll({
-            where: ['section=? and PracticeTestId=?', 'Math2', 1]
-        })
-        .then(function(questions) {
-            var questionArr = questions;
-
-            math2Check(answerSheet, questionArr);
-            if (scoresToCalculate === 0) {
-                console.log("Scores to Calculate: " + scoresToCalculate);
-                returnScores();
-            }
-        });
-
-
 };
+
+
+
+// get all the reading questions
+
 
 function readingCheck(answerSheet, questions) {
     // loop through the student's answers
@@ -157,5 +149,6 @@ function returnScores() {
         math1Raw: math1Raw,
         math2Raw: math2Raw
     };
+    console.log('scores: ' + JSON.stringify(scores));
     return scores;
 }
