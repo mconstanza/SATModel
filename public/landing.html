@@ -12,7 +12,8 @@
             <link rel = "stylesheet" type= "text/css" href = "assets/landing.css">   
             <link rel = "stylesheet" type= "text/css" href = "assets/animate.css">      
                  
-        <!--Google Fonts-->     
+        <!--Google Fonts-->  
+            <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">   
         <!--JS-->       
             <script src = ""></script>  
 </head>
@@ -26,9 +27,12 @@
         <div class="row" id="startButtonHolder">
             <div class= "col-lg-4"></div>
             <div class="col-lg-4 text-center animated fadeInLeft">
-            
-            <button id="startButton" action="/input" method="get">Begin</button>
-
+                <div id = "loginDiv">
+                    <a href="/login"><button id="startButton">login</button></a>
+                    </div>
+                    <div>
+                    <a href="/signup"><button id="startButton">signup</button></a>
+                    </div>
             </div>
             <div class= "col-lg-4"></div>
         </div>
@@ -45,8 +49,8 @@
 
 <script type = "text/javascript">
 $("#startButton").on("click", function(){
-    $("#colLeft").addclass("animated fadeOutLeft")
-    $("#colRight").addclass("animated fadeOutRight")
+    $("#colLeft").addClass("animated fadeOutLeft")
+    $("#colRight").addClass("animated fadeOutRight")
 })
 
 </script>
