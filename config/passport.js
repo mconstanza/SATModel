@@ -46,11 +46,12 @@ module.exports = function(passport) {
     function(req, email, password, done) {
       // asynchronous
       // User.findOne wont fire unless data is sent back
+      var request = req;
       process.nextTick(function() {
 
       // find a user whose email is the same as the form's email
       // we are checking to see if the user trying to login already exists
-
+        console.log(req.body);
         models.User.findOne({where: {'email' : email }})
         .then(function(user) {
 
@@ -64,8 +65,8 @@ module.exports = function(passport) {
             // create the user
             var newUser = models.User.build(
               {
-              firstName: req.firstName,
-              lastName: req.lastName,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
               email: email,
               password: models.User.generateHash(password)
               }
