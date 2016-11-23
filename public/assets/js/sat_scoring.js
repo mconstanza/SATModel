@@ -3,15 +3,14 @@ var models = require('../../../models');
 
 var async = require('async');
 
-var readingRaw = 0;
-var writingRaw = 0;
-var math1Raw = 0;
-var math2Raw = 0;
-
-// counter to deal with asynchronous behavior
-var scoresToCalculate = 4;
-
 module.exports = function(answerSheet) {
+
+    var scores = {
+        readingRaw: 0,
+        writingRaw: 0,
+        math1Raw: 0,
+        math2Raw: 0
+    };
     // check the answers against thes scores from the database and total the raw scores
 
     models.Question.findAll({
@@ -20,7 +19,7 @@ module.exports = function(answerSheet) {
         .then(function(questions) {
             var questionArr = questions;
 
-            readingCheck(answerSheet, questionArr);
+            readingCheck(answerSheet, questionArr, scores);
 
         })
         .then(function() {
@@ -31,7 +30,7 @@ module.exports = function(answerSheet) {
                 .then(function(questions) {
                     var questionArr = questions;
 
-                    writingCheck(answerSheet, questionArr);
+                    writingCheck(answerSheet, questionArr, scores);
 
                 })
                 .then(function() {
@@ -40,7 +39,7 @@ module.exports = function(answerSheet) {
                         })
                         .then(function(questions) {
                             var questionArr = questions;
-                            math1Check(answerSheet, questionArr);
+                            math1Check(answerSheet, questionArr, scores);
                         })
                         .then(function() {
                             models.Question.findAll({
@@ -48,8 +47,8 @@ module.exports = function(answerSheet) {
                                 })
                                 .then(function(questions) {
                                     var questionArr = questions;
-                                    math2Check(answerSheet, questionArr);
-                                    returnScores();
+                                    math2Check(answerSheet, questionArr, scores);
+                                    returnScores(scores);
                                 });
                         });
                 });
@@ -57,11 +56,10 @@ module.exports = function(answerSheet) {
 };
 
 
-
 // get all the reading questions
 
 
-function readingCheck(answerSheet, questions) {
+function readingCheck(answerSheet, questions, scores) {
     // loop through the student's answers
     for (i = 0; i < answerSheet.reading.length; i++) {
 
@@ -71,16 +69,16 @@ function readingCheck(answerSheet, questions) {
             // if the questions numbers and answers match, add 1 raw point
             if (questions[j].number == i + 1 && answerSheet.reading[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
-                readingRaw += 1;
+                scores.readingRaw += 1;
 
             }
         }
     }
     scoresToCalculate -= 1;
-    console.log('Reading Score: ' + readingRaw);
+    console.log('Reading Score: ' + scores.readingRaw);
 }
 
-function writingCheck(answerSheet, questions) {
+function writingCheck(answerSheet, questions, scores) {
     // loop through the student's answers
     for (i = 0; i < answerSheet.writing.length; i++) {
 
@@ -90,16 +88,16 @@ function writingCheck(answerSheet, questions) {
             // if the questions numbers and answers match, add 1 raw point
             if (questions[j].number == i + 1 && answerSheet.writing[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
-                writingRaw += 1;
+                scores.writingRaw += 1;
 
             }
         }
     }
     scoresToCalculate -= 1;
-    console.log('Writing Score: ' + writingRaw);
+    console.log('Writing Score: ' + scores.writingRaw);
 }
 
-function math1Check(answerSheet, questions) { // loop through the student's answers
+function math1Check(answerSheet, questions, scores) { // loop through the student's answers
     for (i = 0; i < answerSheet.math1.length; i++) {
 
         // loop through the questions pulled from the database
@@ -112,16 +110,16 @@ function math1Check(answerSheet, questions) { // loop through the student's answ
             // if the questions numbers and answers match, add 1 raw point
             else if (questions[j].number == i + 1 && answerSheet.math1[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
-                math1Raw += 1;
+                scores.math1Raw += 1;
 
             }
         }
     }
     scoresToCalculate -= 1;
-    console.log('Math1 Score: ' + math1Raw);
+    console.log('Math1 Score: ' + scores.math1Raw);
 }
 
-function math2Check(answerSheet, questions) {
+function math2Check(answerSheet, questions, scores) {
     // loop through the student's answers
     for (i = 0; i < answerSheet.math2.length; i++) {
         // loop through the questions pulled from the database
@@ -132,23 +130,18 @@ function math2Check(answerSheet, questions) {
             // if the questions numbers and answers match, add 1 raw point
             else if (questions[j].number == i + 1 && answerSheet.math2[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
-                math2Raw += 1;
+                scores.math2Raw += 1;
 
             }
         }
     }
     scoresToCalculate -= 1;
-    console.log('Math2 Score: ' + math2Raw);
+    console.log('Math2 Score: ' + scores.math2Raw);
 }
 
-function returnScores() {
+function returnScores(scores) {
     console.log('returning values!');
-    var scores = {
-        readingRaw: readingRaw,
-        writingRaw: writingRaw,
-        math1Raw: math1Raw,
-        math2Raw: math2Raw
-    };
+
     console.log('scores: ' + JSON.stringify(scores));
     return scores;
 }

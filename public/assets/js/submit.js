@@ -42,7 +42,7 @@ $(document).on("click", "#submitForm", function() {
     // data is score object from server
     $.post('/test', answerSheet, function(data) {
         console.log(data);
-        $.get('/report', {scores:data});
+        
     });
 });
 

@@ -83,7 +83,7 @@ var users = require('./controllers/user_controller.js');
 app.use('/', users);
 //
 var tests = require('./controllers/test_controller.js');
-app.use('/test', tests);
+app.use('/', tests);
 
 // Server Ready ////////////////////////////////////////////////////////////
 var port = process.env.PORT || 3000;
