@@ -41,6 +41,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 // override with POST having ?_method=DELETE
 app.use(methodOR('_method'));
 
+//loadings everything in public directory
+app.use(express.static(__dirname + '/public'))
+
 // bring in our models folder. This brings in the model's object, as defined in index.js
 var models  = require('./models');
 
