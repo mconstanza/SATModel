@@ -22,3 +22,7 @@ p {
 	border-width: 5px;
 	background-color: white;
 }
+
+.row {
+	height: 0px;
+}
