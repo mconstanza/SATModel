@@ -46,9 +46,6 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash: true // allow flash messages
 }));
 
-
-
-
 //=============================================
 // SIGNUP
 //=============================================

@@ -23,6 +23,8 @@ router.get('/test', function(req, res) {
         });
 });
 
+
+// when a user submits answers to a practice test
 router.post('/test', function(req, res) {
     var scores = {
         readingRaw: 0,

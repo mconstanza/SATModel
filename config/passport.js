@@ -40,7 +40,7 @@ module.exports = function(passport) {
 
     passport.use('local-signup', new LocalStrategy({
       usernameField: 'email',
-      passwordFeield: 'password',
+      passwordField: 'password',
       passReqToCallback: true // allows us to pass back the entire request to callback
     },
     function(req, email, password, done) {
@@ -56,7 +56,7 @@ module.exports = function(passport) {
 
           // check to see if there's already a user with that email
           if (user) {
-            // need code for if email is taken
+
             return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
           }else {
 
@@ -64,6 +64,8 @@ module.exports = function(passport) {
             // create the user
             var newUser = models.User.build(
               {
+              firstName: req.firstName,
+              lastName: req.lastName,
               email: email,
               password: models.User.generateHash(password)
               }
@@ -111,12 +113,12 @@ module.exports = function(passport) {
           // if no user is found, return the message
           if (!user){
           console.log('no user');
-            return done(null, false, {message: 'No User found.'});
+            return done(null, false, req.flash('loginMessage', 'No user with that email found.'));
           }
           // if the user is found but password is wrong
           else if (!user.validPassword(password)){
             console.log('invalid password');
-            return done(null, false, {message:'Oops! Wrong password.'});
+            return done(null, false, req.flash('loginMessage', 'Invalid password.'));
           }
           else{
             // all is good
