@@ -4,12 +4,9 @@ var express = require('express');
 var user = require('../models/user.js');
 var models = require('../models');
 var passport = require('passport');
-var async = require('async');
-
-var Promise = require('bluebird');
 
 // import SAT scoring
-var SAT = require('../public/assets/js/sat_scoring.js');
+var SAT = require('../js/sat_scoring.js');
 
 // create the express router
 var router = express.Router();

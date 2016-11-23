@@ -1,7 +1,5 @@
 // import the models in order to pull from the database
-var models = require('../../../models');
-
-var async = require('async');
+var models = require('../models');
 
 module.exports = function(answerSheet) {
 
@@ -68,13 +66,12 @@ function readingCheck(answerSheet, questions, scores) {
 
             // if the questions numbers and answers match, add 1 raw point
             if (questions[j].number == i + 1 && answerSheet.reading[i].toLowerCase() == questions[j].answer) {
-                console.log('Correct!');
+
                 scores.readingRaw += 1;
 
             }
         }
     }
-    scoresToCalculate -= 1;
     console.log('Reading Score: ' + scores.readingRaw);
 }
 
@@ -87,13 +84,12 @@ function writingCheck(answerSheet, questions, scores) {
 
             // if the questions numbers and answers match, add 1 raw point
             if (questions[j].number == i + 1 && answerSheet.writing[i].toLowerCase() == questions[j].answer) {
-                console.log('Correct!');
+
                 scores.writingRaw += 1;
 
             }
         }
     }
-    scoresToCalculate -= 1;
     console.log('Writing Score: ' + scores.writingRaw);
 }
 
@@ -103,19 +99,30 @@ function math1Check(answerSheet, questions, scores) { // loop through the studen
         // loop through the questions pulled from the database
         for (j = 0; j < questions.length; j++) {
 
-
+            // If the question is a gridin
             if (questions[j].questionType == "Open") {
-                // special logic for grid ins
+
+                // possible answer choices for gridin questions are separated by commas
+                var answers = questions[j].split(',');
+
+                // loop through the different answers and check if one of them matches the user's answer
+                for (k = 0; k < answers.length; k++) {
+                    if (answers[k] == answerSheet.math1[i]) {
+                        scores.math1Raw += 1;
+                        break;
+                    }
+                }
+
             }
             // if the questions numbers and answers match, add 1 raw point
             else if (questions[j].number == i + 1 && answerSheet.math1[i].toLowerCase() == questions[j].answer) {
-                console.log('Correct!');
+
                 scores.math1Raw += 1;
 
             }
         }
     }
-    scoresToCalculate -= 1;
+
     console.log('Math1 Score: ' + scores.math1Raw);
 }
 
@@ -124,18 +131,29 @@ function math2Check(answerSheet, questions, scores) {
     for (i = 0; i < answerSheet.math2.length; i++) {
         // loop through the questions pulled from the database
         for (j = 0; j < questions.length; j++) {
+            // If the question is a gridin
             if (questions[j].questionType == "Open") {
-                // special logic for grid ins
+
+                // possible answer choices for gridin questions are separated by commas
+                var answers = questions[j].split(',');
+
+                // loop through the different answers and check if one of them matches the user's answer
+                for (k = 0; k < answers.length; k++) {
+                    if (answers[k] == answerSheet.math1[i]) {
+                        scores.math1Raw += 1;
+                        break;
+                    }
+                }
+
             }
             // if the questions numbers and answers match, add 1 raw point
             else if (questions[j].number == i + 1 && answerSheet.math2[i].toLowerCase() == questions[j].answer) {
-                console.log('Correct!');
+
                 scores.math2Raw += 1;
 
             }
         }
     }
-    scoresToCalculate -= 1;
     console.log('Math2 Score: ' + scores.math2Raw);
 }
 
