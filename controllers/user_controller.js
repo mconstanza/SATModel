@@ -43,6 +43,21 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash: true // allow flash messages
 }));
 
+
+models.User.findAll({
+
+}).then(function(user){
+
+    for(var i = 0; i < user.length; i++){
+        // console.log(user[i]);
+        console.log(user[i].dataValues.firstName);
+        console.log(user[i].dataValues.lastName);
+        console.log(user[i].dataValues.email);
+
+    }
+  // console.log(user.firstname);
+})
+
 //=============================================
 // SIGNUP
 //=============================================
