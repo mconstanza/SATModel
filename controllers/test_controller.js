@@ -40,6 +40,11 @@ router.post('/test', function(req, res) {
     //     });
     // });
 
+    //Save data to StudentAnswer table with bulkCreate
+    // ToDo: replace hard coded parameters with praticeId, userId (i.e. router.post('/test/:PracticeTestId/:UserId ...'))
+
+    var answers = saveAnswers(answerSheet, 1, 1);  
+    models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId'] ).then(function() {
 
     models.Question.findAll({
             where: ['section=? and PracticeTestId=?', 'Evidence-Based-Reading', 1]
@@ -86,6 +91,39 @@ router.post('/test', function(req, res) {
         });
 });
 
+});
+
+
+// Save Questions to StudentAnswer Table ////////////////////////////////////////////
+//
+// Currently coded specifically for 
+function saveAnswers(answerTable, praticeId, userId)
+{
+    var data = answerTable;
+    var answers = [];
+
+    var oAnswers = function(answer, PracticeTestId, QuestionId, UserId) {
+          this.answer = answer.toLowerCase();
+          this.PracticeTestId = PracticeTestId;
+          this.QuestionId = QuestionId;
+          this.UserId = UserId;
+    }
+
+    for(var i=0; i<data.reading.length; i++){
+        answers.push( new oAnswers(data.reading[i], praticeId, i+1, userId ) );
+        }
+    for(var i=0; i<data.writing.length; i++){
+        answers.push( new oAnswers(data.writing[i], praticeId, i+53, userId ) );
+        }
+    for(var i=0; i<data.math1.length; i++){
+        answers.push( new oAnswers(data.math1[i], praticeId, i+97, userId ) );
+        }
+    for(var i=0; i<data.math2.length; i++){
+        answers.push( new oAnswers(data.math2[i], praticeId, i+117, userId ) );
+        }
+    
+    return answers;
+}
 // TEST /////////////////////////////////////////////////////////////////////////////
 // get all the reading questions
 
