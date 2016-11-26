@@ -57,7 +57,32 @@ $(document).on("click", ".ansbutton", function() {
 
     var quesSearch = "#" + questionID;
 
-    $(quesSearch).attr("data-ans", studentAnswer);
+    
+
+    //changing status of button
+    if($(this).data("selected") == false){
+        var rowButtons = $(this).parent().children()
+
+        for(var i = 0; i<rowButtons.length; i++){
+            rowButtons.data("selected", false)
+            rowButtons.removeClass("selectedButton")
+        }
+
+        $(this).data("selected", true);
+        $(this).addClass("selectedButton");
+
+        $(quesSearch).attr("data-ans", studentAnswer);
+
+    }
+    else if($(this).data("selected") == true){
+        $(this).data("selected", false);
+        $(this).removeClass("selectedButton")
+        $(quesSearch).attr("data-ans", " ")
+    }
+
+
+
+
 });
 
 
