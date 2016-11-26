@@ -119,14 +119,26 @@ router.post('/test', [function(req, res, next) {
             });
     });
 }, function(req, res, scores) {
-    res.scores = scores;
-    res.send('/report');
+    var data = {
+        url: '/report',
+        scores: scores
+
+    };
+    res.send(data);
 }]);
 
 
 // report router
 router.get('/report', function(req, res) {
     res.render('report', {
+        layout: 'reportLayout.handlebars',
+        scores: req.scores
+    });
+});
+
+router.post('/report', function(req, res) {
+    res.render('report', {
+        layout: 'reportLayout.handlebars',
         scores: req.scores
     });
 });
