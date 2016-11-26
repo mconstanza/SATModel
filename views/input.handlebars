@@ -10,12 +10,12 @@
             {{!-- <tbody> --}}
             {{#each questions}}
 
-                {{#if_eq this.questionType "MC" this.section "Evidence-Based-Reading"}}
+                {{#if_eq this.questionType "MC" this.section "1"}}
                     {{> input/mulchoice}}
 
                 {{/if_eq}}
 
-                {{#if_eq this.questionType "Open" this.section "Evidence-Based-Reading"}}
+                {{#if_eq this.questionType "Open" this.section "1"}}
 
                     {{> input/openAns}}
 
@@ -36,12 +36,12 @@
             {{#each questions}}
 
 
-                {{#if_eq this.questionType "MC" this.section "Writing-and-Language"}}
+                {{#if_eq this.questionType "MC" this.section "2"}}
                     {{> input/mulchoice}}
 
                 {{/if_eq}}
 
-                {{#if_eq this.questionType "Open" this.section "Writing-and-Language"}}
+                {{#if_eq this.questionType "Open" this.section "2"}}
 
                     {{> input/openAns}}
 
@@ -62,12 +62,12 @@
             {{#each questions}}
 
 
-                {{#if_eq this.questionType "MC" this.section "Math1"}}
+                {{#if_eq this.questionType "MC" this.section "3"}}
                     {{> input/mulchoice}}
 
                 {{/if_eq}}
 
-                {{#if_eq this.questionType "Open" this.section "Math1"}}
+                {{#if_eq this.questionType "Open" this.section "3"}}
 
                     {{> input/openAns}}
 
@@ -88,12 +88,12 @@
             {{#each questions}}
 
 
-                {{#if_eq this.questionType "MC" this.section "Math2"}}
+                {{#if_eq this.questionType "MC" this.section "4"}}
                     {{> input/mulchoice}}
 
                 {{/if_eq}}
 
-                {{#if_eq this.questionType "Open" this.section "Math2"}}
+                {{#if_eq this.questionType "Open" this.section "4"}}
 
                     {{> input/openAns}}
 
@@ -109,7 +109,7 @@
 
     </div>
 
-    
+
 </div>
 
 <div class = "row" id="submitRow">
