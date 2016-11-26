@@ -1,8 +1,8 @@
 // Server
 
 var express = require('express'),
-bodyParser = require('body-parser'),
-methodOR = require('method-override');
+    bodyParser = require('body-parser'),
+    methodOR = require('method-override');
 var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -16,9 +16,9 @@ app.use(express.static(process.cwd() + '/public'));
 
 // Express Session for passport
 app.use(session({
-	secret: 'secret',
-	saveUninitialized: true,
-	resave: true
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
 }));
 
 
@@ -36,7 +36,9 @@ app.use(cookieParser()); // reads cookie for auth
 
 // bodyParser middleware
 app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // override with POST having ?_method=DELETE
 app.use(methodOR('_method'));
@@ -45,7 +47,7 @@ app.use(methodOR('_method'));
 app.use(express.static(__dirname + '/public'));
 
 // bring in our models folder. This brings in the model's object, as defined in index.js
-var models  = require('./models');
+var models = require('./models');
 
 // extract our sequelize connection from the models object, to avoid confusion
 var sequelizeConnection = models.sequelize;
@@ -54,9 +56,11 @@ var sequelizeConnection = models.sequelize;
 // sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 //
 // // a) sync the tables
-// .then(function(){
-// 	return sequelizeConnection.sync({force:true})
-// })
+// .then(function() {
+//     return sequelizeConnection.sync({
+//         force: true
+//     });
+// });
 
 sequelizeConnection.sync();
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -64,16 +68,16 @@ sequelizeConnection.sync();
 // handlebars for templating
 var hb = require('express-handlebars');
 app.engine('handlebars', hb({
-  defaultLayout: 'main',
-	helpers: {
-		if_eq: function(a, b, c, d, opts) {
-		  if (a == b && c == d) {
-		      return opts.fn(this);
-		  } else {
-		      return opts.inverse(this);
-		  }
-		}
-	}
+    defaultLayout: 'main',
+    helpers: {
+        if_eq: function(a, b, c, d, opts) {
+            if (a == b && c == d) {
+                return opts.fn(this);
+            } else {
+                return opts.inverse(this);
+            }
+        }
+    }
 }));
 app.set('view engine', 'handlebars');
 

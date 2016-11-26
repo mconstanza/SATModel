@@ -25,7 +25,7 @@ router.get('/test', function(req, res) {
 
 
 // when a user submits answers to a practice test
-router.post('/test', [function(req, res, next) {
+router.post('/test', function(req, res) {
     var scores = {
         readingRaw: 0,
         writingRaw: 0,
@@ -48,7 +48,7 @@ router.post('/test', [function(req, res, next) {
     models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId']).then(function() {
 
         models.Question.findAll({
-                where: ['section=? and PracticeTestId=?', 'Evidence-Based-Reading', 1]
+                where: ['section=? and PracticeTestId=?', '1', 1]
             })
             .then(function(questions) {
                 var questionArr = questions;
@@ -58,7 +58,7 @@ router.post('/test', [function(req, res, next) {
             .then(function() {
                 // get all the writing questions
                 models.Question.findAll({
-                        where: ['section=? and PracticeTestId=?', 'Writing-and-Language', 1]
+                        where: ['section=? and PracticeTestId=?', '2', 1]
                     })
                     .then(function(questions) {
                         var questionArr = questions;
@@ -68,7 +68,7 @@ router.post('/test', [function(req, res, next) {
                     })
                     .then(function() {
                         models.Question.findAll({
-                                where: ['section=? and PracticeTestId=?', 'Math1', 1]
+                                where: ['section=? and PracticeTestId=?', '3', 1]
                             })
                             .then(function(questions) {
                                 var questionArr = questions;
@@ -76,7 +76,7 @@ router.post('/test', [function(req, res, next) {
                             })
                             .then(function() {
                                 models.Question.findAll({
-                                        where: ['section=? and PracticeTestId=?', 'Math2', 1]
+                                        where: ['section=? and PracticeTestId=?', '4', 1]
                                     })
                                     .then(function(questions) {
                                         var questionArr = questions;
@@ -110,7 +110,7 @@ router.post('/test', [function(req, res, next) {
 
                                             }
                                             scores.readingScaled = (scores.readingTest + scores.writingTest) * 10;
-                                            next();
+
 
                                         });
                                     });
@@ -118,25 +118,12 @@ router.post('/test', [function(req, res, next) {
                     });
             });
     });
-}, function(req, res, scores) {
-    var data = {
-        url: '/report',
-        scores: scores
 
-    };
-    res.send(data);
-}]);
+});
 
 
 // report router
 router.get('/report', function(req, res) {
-    res.render('report', {
-        layout: 'reportLayout.handlebars',
-        scores: req.scores
-    });
-});
-
-router.post('/report', function(req, res) {
     res.render('report', {
         layout: 'reportLayout.handlebars',
         scores: req.scores
