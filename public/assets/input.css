@@ -6,6 +6,15 @@
   border-color: black;
 }
 
+.selectedButton{
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 15px;
+  background-color: #78908C;
+  border-color: black;
+}
+
+
 td {
   padding: 3px;
 }
