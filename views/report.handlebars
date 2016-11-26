@@ -1,1 +1,69 @@
-{{scores}}
+<div class = "container">
+  <!--scaled scores-->
+  <div class = "row">
+    <div class = "col-lg-6-offset-3 text-center">
+      <i>Your Report</i>
+    </div>
+  </div>
+  <div class = "row">
+    <!--math scaled score out of 800-->
+    <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="mathScaled">
+      <p>Math</p>
+      <p>{{scores.mathScaled}}</p>
+    </div>
+    <!-- reading scaled score out of 800 -->
+    <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="readingScaled">
+      <p>Reading</p>
+      <p>{{scores.readingScaled}}</p>
+    </div>
+  </div>
+
+  <!-- test scores -->
+  <div class = "row">
+    <!-- reading score out of 40 -->
+    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="readingTestScore">
+      <p>Reading</p>
+      <p>{{scores.readingTest}}</p>
+      
+      <!--reading progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.readingTest}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.readingTest}}/40
+       </div>
+       </div>
+    </div>
+    
+    <!-- writing score out of 40 -->
+    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="writingTestScore">
+      <p>Writing</p>
+      <p>{{scores.writingTest}}</p>
+    
+
+    <!--writing progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.writingTest}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.writnigTest}}/40
+       </div>
+       </div>
+    </div>
+
+    <!-- math score out of 40 -->
+    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScore">
+      <p>Math</p>
+      <p>{{scores.mathTest}}</p>
+    
+
+    <!--reading progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.mathTest}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.mathTest}}/40
+       </div>
+       </div>
+      </div>
+
+  </div>
+</div>
+

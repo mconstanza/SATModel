@@ -21,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.StudentAnswer), {through: 'UserAnswers'}
+        User.hasMany(models.StudentAnswer), {through: 'UserAnswers'},
+        User.hasMany(models.SubmittedTest), {through: 'UserSubmittedTests'}
       },
       // may need ot use instanceMethods for these
       generateHash: function(password) {
