@@ -25,103 +25,140 @@ router.get('/test', function(req, res) {
 
 
 // when a user submits answers to a practice test
-router.post('/test', function(req, res) {
+router.post('/test', [function(req, res, next) {
     var scores = {
         readingRaw: 0,
         writingRaw: 0,
         math1Raw: 0,
-        math2Raw: 0
+        math2Raw: 0,
+        readingTest: 0,
+        writingTest: 0,
+        mathTest: 0,
+        readingScaled: 0,
+        mathScaled: 0
     };
 
     var answerSheet = req.body;
-    //
-    //     SAT(answerSheet, function(scores) {
-    //         res.send(scores);
-    //     });
-    // });
 
     //Save data to StudentAnswer table with bulkCreate
     // ToDo: replace hard coded parameters with praticeId, userId (i.e. router.post('/test/:PracticeTestId/:UserId ...'))
 
-    var answers = saveAnswers(answerSheet, 1, 1);  
-    models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId'] ).then(function() {
+    console.log('req on test page: ' + JSON.stringify(req.body));
+    var answers = saveAnswers(answerSheet, 1, 1);
+    models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId']).then(function() {
 
-    models.Question.findAll({
-            where: ['section=? and PracticeTestId=?', 'Evidence-Based-Reading', 1]
-        })
-        .then(function(questions) {
-            var questionArr = questions;
+        models.Question.findAll({
+                where: ['section=? and PracticeTestId=?', 'Evidence-Based-Reading', 1]
+            })
+            .then(function(questions) {
+                var questionArr = questions;
 
-            readingCheck(answerSheet, questionArr, scores);
-        })
-        .then(function() {
-            // get all the writing questions
-            models.Question.findAll({
-                    where: ['section=? and PracticeTestId=?', 'Writing-and-Language', 1]
-                })
-                .then(function(questions) {
-                    var questionArr = questions;
+                readingCheck(answerSheet, questionArr, scores);
+            })
+            .then(function() {
+                // get all the writing questions
+                models.Question.findAll({
+                        where: ['section=? and PracticeTestId=?', 'Writing-and-Language', 1]
+                    })
+                    .then(function(questions) {
+                        var questionArr = questions;
 
-                    writingCheck(answerSheet, questionArr, scores);
+                        writingCheck(answerSheet, questionArr, scores);
 
-                })
-                .then(function() {
-                    models.Question.findAll({
-                            where: ['section=? and PracticeTestId=?', 'Math1', 1]
-                        })
-                        .then(function(questions) {
-                            var questionArr = questions;
-                            math1Check(answerSheet, questionArr, scores);
-                        })
-                        .then(function() {
-                            models.Question.findAll({
-                                    where: ['section=? and PracticeTestId=?', 'Math2', 1]
-                                })
-                                .then(function(questions) {
-                                    var questionArr = questions;
-                                    math2Check(answerSheet, questionArr, scores);
-                                })
-                                .then(function() {
+                    })
+                    .then(function() {
+                        models.Question.findAll({
+                                where: ['section=? and PracticeTestId=?', 'Math1', 1]
+                            })
+                            .then(function(questions) {
+                                var questionArr = questions;
+                                math1Check(answerSheet, questionArr, scores);
+                            })
+                            .then(function() {
+                                models.Question.findAll({
+                                        where: ['section=? and PracticeTestId=?', 'Math2', 1]
+                                    })
+                                    .then(function(questions) {
+                                        var questionArr = questions;
+                                        math2Check(answerSheet, questionArr, scores);
+                                    })
+                                    .then(function() {
 
-                                    console.log('scores in post file: ' + JSON.stringify(scores));
-                                    res.send(scores);
-                                });
-                        });
-                });
-        });
-});
+                                        console.log('scores in post file: ' + JSON.stringify(scores));
+                                        // res.send(scores);
+                                    })
+                                    .then(function() {
+                                        models.scaledscoretb.findAll({
+                                            where: {
+                                                practiceTest: 1
+                                            }
+                                        })
 
+                                        .then(function(scaledScores) {
+                                            // console.log('\nscaled scores ' + JSON.stringify(scaledScores));
+                                            for (var i = 0; i < scaledScores.length; i++) {
+                                                if (scaledScores[i].rawScore == scores.readingRaw) {
+                                                    scores.readingTest = scaledScores[i].readingScore;
+                                                }
+                                                if (scaledScores[i].rawScore == scores.writingRaw) {
+                                                    scores.writingTest = scaledScores[i].writingScore;
+                                                }
+                                                if (scaledScores[i].rawScore == scores.math1Raw + scores.math2Raw) {
+                                                    scores.mathScaled = scaledScores[i].mathScore;
+                                                    scores.mathTest = scores.mathScaled / 20;
+                                                }
+
+                                            }
+                                            scores.readingScaled = (scores.readingTest + scores.writingTest) * 10;
+                                            next();
+
+                                        });
+                                    });
+                            });
+                    });
+            });
+    });
+}, function(req, res, scores) {
+    res.scores = scores;
+    res.send('/report');
+}]);
+
+
+// report router
+router.get('/report', function(req, res) {
+    res.render('report', {
+        scores: req.scores
+    });
 });
 
 
 // Save Questions to StudentAnswer Table ////////////////////////////////////////////
 //
-// Currently coded specifically for 
-function saveAnswers(answerTable, praticeId, userId)
-{
+// Currently coded specifically for
+function saveAnswers(answerTable, practiceId, userId) {
     var data = answerTable;
     var answers = [];
 
     var oAnswers = function(answer, PracticeTestId, QuestionId, UserId) {
-          this.answer = answer.toLowerCase();
-          this.PracticeTestId = PracticeTestId;
-          this.QuestionId = QuestionId;
-          this.UserId = UserId;
+        this.answer = answer.toLowerCase();
+        this.PracticeTestId = PracticeTestId;
+        this.QuestionId = QuestionId;
+        this.UserId = UserId;
+    };
+
+    for (var i = 0; i < data.reading.length; i++) {
+        answers.push(new oAnswers(data.reading[i], practiceId, i + 1, userId));
+    }
+    for (var i = 0; i < data.writing.length; i++) {
+        answers.push(new oAnswers(data.writing[i], practiceId, i + 53, userId));
+    }
+    for (var i = 0; i < data.math1.length; i++) {
+        answers.push(new oAnswers(data.math1[i], practiceId, i + 97, userId));
+    }
+    for (var i = 0; i < data.math2.length; i++) {
+        answers.push(new oAnswers(data.math2[i], practiceId, i + 117, userId));
     }
 
-    for(var i=0; i<data.reading.length; i++){
-        answers.push( new oAnswers(data.reading[i], praticeId, i+1, userId ) );
-        }
-    for(var i=0; i<data.writing.length; i++){
-        answers.push( new oAnswers(data.writing[i], praticeId, i+53, userId ) );
-        }
-    for(var i=0; i<data.math1.length; i++){
-        answers.push( new oAnswers(data.math1[i], praticeId, i+97, userId ) );
-        }
-    for(var i=0; i<data.math2.length; i++){
-        answers.push( new oAnswers(data.math2[i], praticeId, i+117, userId ) );
-        }
-    
     return answers;
 }
 // TEST /////////////////////////////////////////////////////////////////////////////

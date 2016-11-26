@@ -25,7 +25,8 @@ router.get('/users', function(req, res) {
 // render a user's profile -- REQUIRES AUTH
 router.get('/profile', isLoggedIn, function(req, res) {
     // replace with handlebars stuff
-    res.render('user');
+    console.log(req.user);
+    res.render('user', {message:req.flash('loginMessage')});
 });
 //=============================================
 // LOGIN
@@ -33,6 +34,7 @@ router.get('/profile', isLoggedIn, function(req, res) {
 // goes to login page
 router.get('/login', function(req, res) {
     // remember to incorporate flash messages here
+    console.log(req);
     res.sendFile(process.cwd() + '/public/login.html');
 });
 
@@ -73,6 +75,8 @@ function isLoggedIn(req, res, next) {
     // if a user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
+
+    res.redirect('/');
 }
 
 router.get('/', function(req, res) {

@@ -41,8 +41,8 @@ $(document).on("click", "#submitForm", function() {
     // submit post request to /test to submit answersheet
     // data is score object from server
     $.post('/test', answerSheet, function(data) {
-        console.log(data);
-        
+        window.location = data;
+
     });
 });
 
