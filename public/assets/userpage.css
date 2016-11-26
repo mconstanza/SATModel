@@ -44,4 +44,9 @@ body {
 #profileInfo{
 	color: red;
     outline: 3px solid; color:rgb(122,144,141);
+    padding-left: 10px;
+}
+
+.userInformation{
+    text-align: left;
 }

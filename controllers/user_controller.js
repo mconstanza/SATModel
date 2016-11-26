@@ -26,7 +26,8 @@ router.get('/users', function(req, res) {
 router.get('/profile', isLoggedIn, function(req, res) {
     // replace with handlebars stuff
     console.log(req.user);
-    res.render('user', {message:req.flash('loginMessage')});
+    res.render('user', {message:req.flash('loginMessage'), user:req.user});
+
 });
 //=============================================
 // LOGIN
