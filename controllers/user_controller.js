@@ -81,6 +81,9 @@ function isLoggedIn(req, res, next) {
 }
 
 router.get('/', function(req, res) {
+    if(req.isAuthenticated){
+      res.redirect('/profile');
+    }
     res.sendFile(process.cwd() + '/public/landing.html');
 });
 
