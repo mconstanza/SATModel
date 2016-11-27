@@ -34,8 +34,8 @@ module.exports = function(passport) {
         //         if (user === null) {
         //             done(new Error('Wrong user id.'));
         //         }
-                done(null, sessionUser);
-            });
+        done(null, sessionUser);
+    });
     // });
 
     // =========================================================================
@@ -60,7 +60,7 @@ module.exports = function(passport) {
                 console.log(req.body);
                 models.User.findOne({
                         where: {
-                            'email': email
+                            'email': email.toLowerCase()
                         }
                     })
                     .then(function(user) {
@@ -76,7 +76,7 @@ module.exports = function(passport) {
                             var newUser = models.User.build({
                                 firstName: req.body.firstName,
                                 lastName: req.body.lastName,
-                                email: email,
+                                email: email.toLowerCase(),
                                 password: models.User.generateHash(password)
                             });
                             newUser.save().then(function(err) {
@@ -111,30 +111,50 @@ module.exports = function(passport) {
             // if the user logging in exists
             models.User.findOne({
                     where: {
-                        'email': email
+                        'email': email.toLowerCase()
                     }
                 })
-                .then(function(user) {
-                    console.log('user: ' + user);
-                    console.log('password: ' + user.password);
-
-                    console.log(user.validPassword(password));
-                    // if (err)
-                    //   console.log('error')
-                    //   return done(err);
+                .then(function(user, err) {
+                    // console.log('user: ' + user);
+                    // console.log('password: ' + user.password);
+                    //
+                    // console.log(user.validPassword(password));
+                    if (err) {
+                        console.log('error');
+                        return done(err);
+                    }
 
                     // if no user is found, return the message
                     if (!user) {
-                        console.log('no user');
-                        return done(null, false, req.flash('loginMessage', 'No user with that email found.'));
+                        console.log('\nno user\n');
+                        // return done(null, false, {message: 'No user with that email found.' });
+                        // return done(null, false, req.flash('message', 'No user with that email found.'));
+                        req.session.flash = {
+                            message: 'No user with that email found.'
+                        };
+                        req.session.save(function() {
+                            return done(null, false);
+                        });
+
+
+
                     }
                     // if the user is found but password is wrong
                     else if (!user.validPassword(password)) {
-                        console.log('invalid password');
-                        return done(null, false, req.flash('loginMessage', 'Invalid password.'));
+                        console.log('\ninvalid password\n');
+                        // return done(null, false, {message: 'Invalid password.'});
+                        req.session.flash = {
+                            message: 'Invalid password.'
+                        };
+                        // return done(null, false, req.flash('message', 'Invalid password.'));
+                        req.session.save(function() {
+                            return done(null, false);
+                        });
+
+
                     } else {
                         // all is good
-                        console.log('made it to the return');
+                        console.log('\nlog in successful\n');
                         return done(null, user);
                     }
                 });

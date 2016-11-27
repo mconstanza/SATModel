@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     lastName: DataTypes.STRING,
     password: DataTypes.STRING.BINARY,
     email: DataTypes.STRING,
+    role: DataTypes.STRING,
 
     facebookID: DataTypes.STRING,
     facebookToken: DataTypes.STRING,
@@ -17,7 +18,10 @@ module.exports = function(sequelize, DataTypes) {
     googleID: DataTypes.STRING,
     googleToken: DataTypes.STRING,
     googleEmail: DataTypes.STRING,
-    googleName: DataTypes.STRING
+    googleName: DataTypes.STRING,
+
+    resetPasswordToken: DataTypes.STRING,
+    resetPasswordExpires: DataTypes.DATE
   }, {
     classMethods: {
       associate: function(models) {
