@@ -6,7 +6,8 @@ $(document).on("click", "#submitForm", function() {
         reading: {},
         writing: {},
         math1: {},
-        math2: {}
+        math2: {},
+        testId: 1
     };
 
     var search = $(".question-choices");
@@ -18,20 +19,20 @@ $(document).on("click", "#submitForm", function() {
         var section = $(this).attr("data-section");
 
         // check what section the question belongs to and push it to the object accordingly
-        if (section == "Evidence-Based-Reading") {
+        if (section == "1") {
             var questionNumber = $(this).attr("data-number");
             var questionAnswer = $(this).attr("data-ans");
             answerSheet.reading[questionNumber] = questionAnswer;
 
-        } else if (section == "Writing-and-Language") {
+        } else if (section == "2") {
             var questionNumber = $(this).attr("data-number");
             var questionAnswer = $(this).attr("data-ans");
             answerSheet.writing[questionNumber] = questionAnswer;
-        } else if (section == "Math1") {
+        } else if (section == "3") {
             var questionNumber = $(this).attr("data-number");
             var questionAnswer = $(this).attr("data-ans");
             answerSheet.math1[questionNumber] = questionAnswer;
-        } else if (section == "Math2") {
+        } else if (section == "4") {
             var questionNumber = $(this).attr("data-number");
             var questionAnswer = $(this).attr("data-ans");
             answerSheet.math2[questionNumber] = questionAnswer;
