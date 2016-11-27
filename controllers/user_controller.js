@@ -61,7 +61,10 @@ router.post('/login', passport.authenticate('local-login', {
 // goes to sign up page
 router.get('/signup', function(req, res) {
     // remember to incorporate flash messages here
-    res.sendFile(process.cwd() + '/public/signup.html');
+    // res.sendFile(process.cwd() + '/public/signup.html');
+    res.render('signup', {
+        message: req.session.flash.message
+    });
 });
 
 // user submits sign up data
