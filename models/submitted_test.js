@@ -2,7 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
   var SubmittedTests = sequelize.define('SubmittedTest', {
-    name: DataTypes.STRING,
+    readingRaw: DataTypes.INTEGER,
+    writingRaw: DataTypes.INTEGER,
+    math1Raw: DataTypes.INTEGER,
+    math2Raw: DataTypes.INTEGER,
+    readingTest: DataTypes.INTEGER,
+    writingTest: DataTypes.INTEGER,
+    mathTest: DataTypes.DECIMAL,
+    readingScaled: DataTypes.INTEGER,
+    mathScaled: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
