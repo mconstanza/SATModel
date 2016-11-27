@@ -5,46 +5,16 @@ var express = require('express'),
     methodOR = require('method-override');
 var passport = require('passport');
 var session = require('express-session');
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
+
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
 var app = express();
 
-// public director for static content
+// public directory for static content
 app.use(express.static(process.cwd() + '/public'));
-
-// Express Session for passport
-app.use(session({
-    secret: 'secret',
-    saveUninitialized: true,
-    resave: true
-}));
-
-
-// Passport Init
-
-require('./config/passport')(passport); // pass passport for configuration
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(flash()); // connect-flash for flash messages stored in session
-
-// cookieParser middleware
-app.use(cookieParser()); // reads cookie for auth
-
-// bodyParser middleware
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-// override with POST having ?_method=DELETE
-app.use(methodOR('_method'));
-
-//loadings everything in public directory
-app.use(express.static(__dirname + '/public'));
 
 // bring in our models folder. This brings in the model's object, as defined in index.js
 var models = require('./models');
@@ -63,6 +33,47 @@ var sequelizeConnection = models.sequelize;
 // });
 
 sequelizeConnection.sync();
+
+var sessionStore = new SequelizeStore({
+  db: sequelizeConnection
+});
+
+// Express Session for passport
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true,
+    store: sessionStore
+
+}));
+
+sessionStore.sync();
+
+
+// Passport Init
+
+require('./config/passport')(passport); // pass passport for configuration
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(flash()); // connect-flash for flash messages stored in session
+
+// cookieParser middleware
+// app.use(cookieParser()); // reads cookie for auth
+
+// bodyParser middleware
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+// override with POST having ?_method=DELETE
+app.use(methodOR('_method'));
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // handlebars for templating
