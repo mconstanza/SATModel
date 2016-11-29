@@ -45,7 +45,7 @@ router.get('/login', function(req, res) {
     console.log('\nreq: ' + JSON.stringify(req.session));
     // console.log('\nres.locals: ' + JSON.stringify(res.locals));
     res.render('login', {
-        message: req.session.flash.message
+        message: req.session.flash
     });
 });
 // });
@@ -80,7 +80,7 @@ router.get('/signup', function(req, res) {
     // remember to incorporate flash messages here
     // res.sendFile(process.cwd() + '/public/signup.html');
     res.render('signup', {
-        message: req.session.flash.message
+        message: req.session.flash
     });
 });
 
@@ -275,9 +275,9 @@ function isLoggedIn(req, res, next) {
 
 // homepage - user is directed to profile if already logged in
 router.get('/', function(req, res) {
-    if (isLoggedIn()) {
-        res.redirect('/profile');
-    }
+    // if (isLoggedIn(req, res)) {
+    //     res.redirect('/profile');
+    // }
     res.sendFile(process.cwd() + '/public/landing.html');
 });
 

@@ -7,8 +7,8 @@
             <br>
 
             <!-- show any messages that come back with authentication-->
-            {{#if message}}
-                <div class="alert alert-danger">{{message}}</div>
+            {{#if message.message}}
+                <div class="alert alert-danger">{{message.message}}</div>
             {{/if}}
             <!-- LOGIN FORM -->
             <form action="/login" method="post">
