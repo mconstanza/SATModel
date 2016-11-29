@@ -5,10 +5,14 @@ var user = require('../models/user.js');
 var models = require('../models');
 var passport = require('passport');
 
+
+var async = require('async');
+
 // create the express router
 var router = express.Router();
 
 router.get('/test', function(req, res) {
+
     models.Question.findAll({
             where: {
                 practiceTestId: 1
@@ -21,10 +25,13 @@ router.get('/test', function(req, res) {
             };
             res.render('input', hbsObj);
         });
+       
+
 });
 
-
-// when a user submits answers to a practice test
+// --------------------------------------------------------------
+// When a user submits answers to a practice test
+// --------------------------------------------------------------
 router.post('/test', function(req, res) {
     var scores = {
         readingRaw: 0,
@@ -40,117 +47,145 @@ router.post('/test', function(req, res) {
 
     var answerSheet = req.body;
 
-    //Save data to StudentAnswer table with bulkCreate
-    // ToDo: replace hard coded parameters with praticeId, userId (i.e. router.post('/test/:PracticeTestId/:UserId ...'))
-
     console.log('\nreq on test page: ' + JSON.stringify(req.session.passport.user) + '\n');
 
     var user = req.session.passport.user;
 
-    models.SubmittedTest.create({
-        PracticeTestId: answerSheet.testId,
-        UserId: user.id
-    }).then(function(currentTest) {
+    //Start the Waterfall
+    var _PracticeTestId = answerSheet.testId;
+    var _UserId = user.id;
+    var _currentTest = [];
+   
+    async.waterfall([
+        firstCallback,
+        createSubmittedTest,
+        saveStudentAnswers,
+        getQuestionsSection1,
+        getQuestionsSection2,
+        getQuestionsSection3,
+        getQuestionsSection4,
+        getScaledScores,
+        updateCurrTest,                       
+    ], function (err, result) {
+        res.send(result);
+   });
 
-        console.log('\ncurrent test: ' + JSON.stringify(currentTest) + '\n');
+    // all the waterfall handler functions
+    function firstCallback(callback) {
+            callback(null, _PracticeTestId, _UserId);  
+    }
 
-        var answers = saveAnswers(answerSheet, currentTest.PracticeTestId, currentTest.UserId, currentTest.id);
-        models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId', 'SubmittedTestId'])
+    function createSubmittedTest(practiceid, userid, callback) {
+        models.SubmittedTest.create({
+            PracticeTestId: practiceid,
+            UserId: userid
+        }).then(function(currentTest) {
+            _currentTest = currentTest;
+            var ans = saveAnswers(answerSheet, currentTest.PracticeTestId, currentTest.UserId, currentTest.id);
+            callback(null, ans, currentTest, practiceid);
+        });
+    }
+
+    function saveStudentAnswers(answers, currentTest, practiceid, callback) {
+            models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId', 'SubmittedTestId'])
             .then(function() {
+                callback(null, answers, practiceid);
+             });
+     }
 
-                models.Question.findAll({
-                        where: ['section=? and PracticeTestId=?', '1', 1]
-                    })
-                    .then(function(questions) {
-                        var questionArr = questions;
+     function getQuestionsSection1(answers, practiceid, callback) {
+          models.Question.findAll({
+              where: ['section=? and PracticeTestId=?', '1', practiceid]
+             })
+            .then(function(questions) {
+                var questionArr = questions;
+                readingCheck(answerSheet, questionArr, scores);
+                callback(null, answers, practiceid);
+            })
+      }
 
-                        readingCheck(answerSheet, questionArr, scores);
-                    })
-                    .then(function() {
-                        // get all the writing questions
-                        models.Question.findAll({
-                                where: ['section=? and PracticeTestId=?', '2', 1]
-                            })
-                            .then(function(questions) {
-                                var questionArr = questions;
+     function getQuestionsSection2(answers, practiceid, callback) {
+          models.Question.findAll({
+                where: ['section=? and PracticeTestId=?', '2', practiceid]
+            })
+            .then(function(questions) {
+                var questionArr = questions;
+                writingCheck(answerSheet, questionArr, scores);
+                callback(null, answers, practiceid);
+            })
+        }
 
-                                writingCheck(answerSheet, questionArr, scores);
+    function getQuestionsSection3(answers, practiceid, callback) {
+        models.Question.findAll({
+            where: ['section=? and PracticeTestId=?', '3', practiceid]
+        })
+        .then(function(questions) {
+            var questionArr = questions;
+            math1Check(answerSheet, questionArr, scores);
+            callback(null, answers, practiceid);
+        })
+        }
 
-                            })
-                            .then(function() {
-                                models.Question.findAll({
-                                        where: ['section=? and PracticeTestId=?', '3', 1]
-                                    })
-                                    .then(function(questions) {
-                                        var questionArr = questions;
-                                        math1Check(answerSheet, questionArr, scores);
-                                    })
-                                    .then(function() {
-                                        models.Question.findAll({
-                                                where: ['section=? and PracticeTestId=?', '4', 1]
-                                            })
-                                            .then(function(questions) {
-                                                var questionArr = questions;
-                                                math2Check(answerSheet, questionArr, scores);
-                                            })
-                                            .then(function() {
-                                                models.ScaledScoreTable.findAll({
-                                                    where: {
-                                                        PracticeTestId: currentTest.PracticeTestId
-                                                    }
-                                                })
+    function getQuestionsSection4(answers, practiceid, callback) {
+         models.Question.findAll({
+                    where: ['section=? and PracticeTestId=?', '4', practiceid]
+                })
+                .then(function(questions) {
+                    var questionArr = questions;
+                    math2Check(answerSheet, questionArr, scores);
+                    callback(null, _currentTest, practiceid);
+                })
+        }
 
-                                                .then(function(scaledScores) {
+    function getScaledScores(currentTest, practiceid, callback) {
+             models.ScaledScoreTable.findAll({
+                where: { PracticeTestId: practiceid }
+            })
 
-                                                  console.log('\nScores in scaled score function: ' + JSON.stringify(scores) + '\n');
-                                                  console.log('Scaled scores: ' + JSON.stringify(scaledScores) + '\n');
+            .then(function(scaledScores) {
+                    console.log('\nScores in scaled score function: ' + JSON.stringify(scores) + '\n');
+                    console.log('Scaled scores: ' + JSON.stringify(scaledScores) + '\n');
 
-                                                    for (var i = 0; i < scaledScores.length; i++) {
-                                                        if (scaledScores[i].rawScore == scores.readingRaw) {
-                                                            scores.readingTest = scaledScores[i].readingScore;
-                                                        }
-                                                        if (scaledScores[i].rawScore == scores.writingRaw) {
-                                                            scores.writingTest = scaledScores[i].writingScore;
-                                                        }
-                                                        if (scaledScores[i].rawScore == scores.math1Raw + scores.math2Raw) {
-                                                            scores.mathScaled = scaledScores[i].mathScore;
-                                                            scores.mathTest = scores.mathScaled / 20;
-                                                        }
+                for (var i = 0; i < scaledScores.length; i++) {
+                    if (scaledScores[i].rawScore == scores.readingRaw) {
+                        scores.readingTest = scaledScores[i].readingScore;
+                    }
+                    if (scaledScores[i].rawScore == scores.writingRaw) {
+                        scores.writingTest = scaledScores[i].writingScore;
+                    }
+                    if (scaledScores[i].rawScore == scores.math1Raw + scores.math2Raw) {
+                        scores.mathScaled = scaledScores[i].mathScore;
+                        scores.mathTest = scores.mathScaled / 20;
+                    }
 
-                                                    }
-                                                    scores.readingScaled = (scores.readingTest + scores.writingTest) * 10;
+                }
+                scores.readingScaled = (scores.readingTest + scores.writingTest) * 10;
+                req.session.passport.user.currentTest = currentTest.id;
+                callback(null, currentTest);
+        });
+      }
 
-                                                    req.session.passport.user.currentTest = currentTest.id;
-
-                                                    console.log('\nscaled scores: ' + JSON.stringify(scores) + '\n');
-                                                    currentTest.update({
-                                                            readingRaw: scores.readingRaw,
-                                                            writingRaw: scores.writingRaw,
-                                                            math1Raw: scores.math1Raw,
-                                                            math2Raw: scores.math2Raw,
-                                                            readingTest: scores.readingTest,
-                                                            writingTest: scores.writingTest,
-                                                            mathTest: scores.mathTest,
-                                                            readingScaled: scores.readingScaled,
-                                                            mathScaled: scores.mathScaled
-                                                        })
-                                                        .then(function(currentTest) {
-                                                            var data = {
-                                                                url: '/report/' + currentTest.id
-                                                            };
-
-                                                            res.send(data);
-
-                                                        });
-                                                });
-                                            });
-                                    });
-                            });
-                    });
+        function updateCurrTest(currentTest, callback){
+            currentTest.update({
+                readingRaw: scores.readingRaw,
+                writingRaw: scores.writingRaw,
+                math1Raw: scores.math1Raw,
+                math2Raw: scores.math2Raw,
+                readingTest: scores.readingTest,
+                writingTest: scores.writingTest,
+                mathTest: scores.mathTest,
+                readingScaled: scores.readingScaled,
+                mathScaled: scores.mathScaled
+            })
+            .then(function(currentTest) {
+                var data = {  url: '/report/' + currentTest.id  };
+                console.log(currentTest.id);
+                console.log(data);
+                callback(null, data);
             });
-    });
-});
+        }
 
+});
 
 // report router
 router.get('/report/:id', function(req, res) {
@@ -173,7 +208,6 @@ router.get('/report/:id', function(req, res) {
     });
 
 });
-
 
 // Save Questions to StudentAnswer Table ////////////////////////////////////////////
 //
@@ -303,8 +337,6 @@ function returnScores() {
     // console.log('scores: ' + JSON.stringify(scores));
     return scores;
 }
-
-
 
 
 module.exports = router;
