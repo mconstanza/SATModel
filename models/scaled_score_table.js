@@ -18,15 +18,15 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER(11),
             allowNull: true
         },
-        expressionIdeas: {
+        expressionOfIdeas: {
             type: DataTypes.INTEGER(11),
             allowNull: true
         },
-        stdEnglishConventions: {
+        standardEnglishConventions: {
             type: DataTypes.INTEGER(11),
             allowNull: true
         },
-        heartOfAlebra: {
+        heartOfAlgebra: {
             type: DataTypes.INTEGER(11),
             allowNull: true
         },
