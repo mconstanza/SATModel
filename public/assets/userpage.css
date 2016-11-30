@@ -42,11 +42,20 @@ body {
 }
 
 #profileInfo{
-	color: red;
-    outline: 3px solid; color:rgb(122,144,141);
+	color:rgb(122,144,141);;
+    border-left: 1px solid;
     padding-left: 10px;
 }
 
 .userInformation{
+    outline: 3px solid; color:rgb(122,144,141);
     text-align: left;
+}
+
+#navModalText{
+    margin:left 20px;
+}
+
+body{
+    background-image: url("images/background.png");
 }
