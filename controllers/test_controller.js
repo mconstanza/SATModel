@@ -42,7 +42,27 @@ router.post('/test', function(req, res) {
         writingTest: 0,
         mathTest: 0,
         readingScaled: 0,
-        mathScaled: 0
+        mathScaled: 0,
+        
+        expressionOfIdeasRaw: 0,
+        standardEnglishConventionsRaw: 0,
+        heartOfAlgebraRaw: 0,
+        problemSolvingDataAnalysisRaw: 0,
+        passportToAdvMathRaw: 0,
+        wordsInContextRaw: 0,
+        commandOfEvidenceRaw: 0,
+        historyRaw: 0,
+        scienceRaw: 0,
+
+        expressionOfIdeas: 0,
+        standardEnglishConventions: 0,
+        heartOfAlgebra: 0,
+        problemSolvingDataAnalysis: 0,
+        passportToAdvMath: 0,
+        wordsInContext: 0,
+        commandOfEvidence: 0,
+        history: 0,
+        science: 0
     };
 
     var answerSheet = req.body;
@@ -89,7 +109,7 @@ router.post('/test', function(req, res) {
     function saveStudentAnswers(answers, currentTest, practiceid, callback) {
             models.StudentAnswer.bulkCreate(answers, ['answer', 'PracticeTestId', 'QuestionId', 'UserId', 'SubmittedTestId'])
             .then(function() {
-                callback(null, answers, practiceid);
+               callback(null, answers, practiceid);
              });
      }
 
@@ -158,6 +178,26 @@ router.post('/test', function(req, res) {
                         scores.mathTest = scores.mathScaled / 20;
                     }
 
+                    //crossscore/category scaled scores
+                     if (scaledScores[i].rawScore == scores.wordsInContextRaw) 
+                            scores.wordsInContext = scaledScores[i].wordsInContext;
+                     if (scaledScores[i].rawScore == scores.standardEnglishConventionsRaw) 
+                        scores.standardEnglishConventions = scaledScores[i].stdEnglishConventions;
+                     if (scaledScores[i].rawScore == scores.expressionOfIdeasRaw) 
+                        scores.expressionOfIdeas = scaledScores[i].expressionIdeas;
+                     if (scaledScores[i].rawScore == scores.heartOfAlgebraRaw) 
+                        scores.heartOfAlgebra = scaledScores[i].heartOfAlebra;
+                     if (scaledScores[i].rawScore == scores.problemSolvingDataAnalysisRaw) 
+                        scores.problemSolvingDataAnalysis = scaledScores[i].problemSolvingDataAnalysis;
+                     if (scaledScores[i].rawScore == scores.passportToAdvMathRaw)
+                        scores.passportToAdvMath = scaledScores[i].passportToAdvMath;
+                     if (scaledScores[i].rawScore == scores.commandOfEvidenceRaw)
+                        scores.commandOfEvidence = scaledScores[i].commandOfEvidence;
+                     if (scaledScores[i].rawScore == scores.historyRaw) 
+                        scores.history= scaledScores[i].history;
+                     if (scaledScores[i].rawScore == scores.scienceRaw)
+                        scores.science = scaledScores[i].science;
+
                 }
                 scores.readingScaled = (scores.readingTest + scores.writingTest) * 10;
                 req.session.passport.user.currentTest = currentTest.id;
@@ -175,7 +215,19 @@ router.post('/test', function(req, res) {
                 writingTest: scores.writingTest,
                 mathTest: scores.mathTest,
                 readingScaled: scores.readingScaled,
-                mathScaled: scores.mathScaled
+                mathScaled: scores.mathScaled,
+
+                //  Update new fields
+                expressionOfIdeas: scores.expressionOfIdeas,
+                standardEnglishConventions: scores.standardEnglishConventions,
+                heartOfAlgebra: scores.heartOfAlgebra,
+                problemSolvingDataAnalysis: scores.problemSolvingDataAnalysis,
+                passportToAdvMath: scores.passportToAdvMath,
+                wordsInContext: scores.wordsInContext,
+                commandOfEvidence: scores.commandOfEvidence,
+                history: scores.history,
+                science: scores.science
+
             })
             .then(function(currentTest) {
                 var data = {  url: '/report/' + currentTest.id  };
@@ -210,8 +262,6 @@ router.get('/report/:id', function(req, res) {
 });
 
 // Save Questions to StudentAnswer Table ////////////////////////////////////////////
-//
-// Currently coded specifically for
 function saveAnswers(answerTable, practiceId, userId, submittedTestId) {
     var data = answerTable;
     var answers = [];
@@ -254,13 +304,15 @@ function readingCheck(answerSheet, questions, scores) {
             if (questions[j].number == i + 1 && answerSheet.reading[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
                 scores.readingRaw += 1;
-
+                calcCrossScore(questions[j], scores);
             }
         }
     }
     console.log('Reading Score: ' + scores.readingRaw);
+
     return scores;
 }
+
 
 function writingCheck(answerSheet, questions, scores) {
     // loop through the student's answers
@@ -268,12 +320,11 @@ function writingCheck(answerSheet, questions, scores) {
 
         // loop through the questions pulled from the database
         for (j = 0; j < questions.length; j++) {
-
-            // if the questions numbers and answers match, add 1 raw point
+         // if the questions numbers and answers match, add 1 raw point
             if (questions[j].number == i + 1 && answerSheet.writing[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
                 scores.writingRaw += 1;
-
+                calcCrossScore(questions[j], scores);
             }
         }
     }
@@ -287,16 +338,14 @@ function math1Check(answerSheet, questions, scores) { // loop through the studen
 
         // loop through the questions pulled from the database
         for (j = 0; j < questions.length; j++) {
-
-
-            if (questions[j].questionType == "Open") {
+           if (questions[j].questionType == "Open") {
                 // special logic for grid ins
             }
             // if the questions numbers and answers match, add 1 raw point
             else if (questions[j].number == i + 1 && answerSheet.math1[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
                 scores.math1Raw += 1;
-
+                calcCrossScore(questions[j], scores);
             }
         }
     }
@@ -310,14 +359,14 @@ function math2Check(answerSheet, questions, scores) {
     for (i = 0; i < answerSheet.math2.length; i++) {
         // loop through the questions pulled from the database
         for (j = 0; j < questions.length; j++) {
-            if (questions[j].questionType == "Open") {
+          if (questions[j].questionType == "Open") {
                 // special logic for grid ins
             }
             // if the questions numbers and answers match, add 1 raw point
             else if (questions[j].number == i + 1 && answerSheet.math2[i].toLowerCase() == questions[j].answer) {
                 console.log('Correct!');
                 scores.math2Raw += 1;
-
+                calcCrossScore(questions[j], scores);
             }
         }
     }
@@ -326,13 +375,36 @@ function math2Check(answerSheet, questions, scores) {
     return scores;
 }
 
+//updates scores with the appropriate subscore, category, and crosstest subtotals
+function calcCrossScore(questions, scores){
+
+    if(questions.subScore=="Words in Context")
+            scores.wordsInContextRaw += 1;
+    if(questions.subScore=="Command of Evidence")
+            scores.commandOfEvidenceRaw += 1;
+    if(questions.category=="Standard English Conventions")
+            scores.standardEnglishConventionsRaw += 1;
+    if(questions.category=="Expression of Ideas")
+            scores.expressionOfIdeasRaw += 1;
+    if(questions.category=="Heart of Algebra")
+            scores.heartOfAlgebraRaw += 1;
+    if(questions.category=="Problem Solving and Data Analysis")
+            scores.problemSolvingDataAnalysisRaw += 1;
+    if(questions.category=="Passport to Advaced Mathematics")
+            scores.passportToAdvMathRaw += 1;
+    if(questions.crossTest=="History")
+            scores.historyRaw += 1;
+    if(questions.crossTest=="Science")
+            scores.scienceRaw += 1;
+}
+
 function returnScores() {
     console.log('returning values!');
     var scores = {
         readingRaw: readingRaw,
         writingRaw: writingRaw,
         math1Raw: math1Raw,
-        math2Raw: math2Raw
+        math2Raw: math2Raw,
     };
     // console.log('scores: ' + JSON.stringify(scores));
     return scores;
