@@ -11,11 +11,11 @@ var async = require('async');
 // create the express router
 var router = express.Router();
 
-router.get('/test', function(req, res) {
+router.get('/test/:id', function(req, res) {
 
     models.Question.findAll({
             where: {
-                practiceTestId: 1
+                practiceTestId: req.params.id
             }
         })
         .then(function(questions) {
@@ -25,14 +25,12 @@ router.get('/test', function(req, res) {
             };
             res.render('input', hbsObj);
         });
-       
-
 });
 
 // --------------------------------------------------------------
 // When a user submits answers to a practice test
 // --------------------------------------------------------------
-router.post('/test', function(req, res) {
+router.post('/test/:id', function(req, res) {
     var scores = {
         readingRaw: 0,
         writingRaw: 0,
@@ -52,10 +50,10 @@ router.post('/test', function(req, res) {
     var user = req.session.passport.user;
 
     //Start the Waterfall
-    var _PracticeTestId = answerSheet.testId;
+    var _PracticeTestId = req.params.id;
     var _UserId = user.id;
     var _currentTest = [];
-   
+
     async.waterfall([
         firstCallback,
         createSubmittedTest,
@@ -65,14 +63,14 @@ router.post('/test', function(req, res) {
         getQuestionsSection3,
         getQuestionsSection4,
         getScaledScores,
-        updateCurrTest,                       
+        updateCurrTest,
     ], function (err, result) {
         res.send(result);
    });
 
     // all the waterfall handler functions
     function firstCallback(callback) {
-            callback(null, _PracticeTestId, _UserId);  
+            callback(null, _PracticeTestId, _UserId);
     }
 
     function createSubmittedTest(practiceid, userid, callback) {
@@ -101,7 +99,7 @@ router.post('/test', function(req, res) {
                 var questionArr = questions;
                 readingCheck(answerSheet, questionArr, scores);
                 callback(null, answers, practiceid);
-            })
+            });
       }
 
      function getQuestionsSection2(answers, practiceid, callback) {
@@ -112,7 +110,7 @@ router.post('/test', function(req, res) {
                 var questionArr = questions;
                 writingCheck(answerSheet, questionArr, scores);
                 callback(null, answers, practiceid);
-            })
+            });
         }
 
     function getQuestionsSection3(answers, practiceid, callback) {
@@ -123,7 +121,7 @@ router.post('/test', function(req, res) {
             var questionArr = questions;
             math1Check(answerSheet, questionArr, scores);
             callback(null, answers, practiceid);
-        })
+        });
         }
 
     function getQuestionsSection4(answers, practiceid, callback) {
@@ -134,7 +132,7 @@ router.post('/test', function(req, res) {
                     var questionArr = questions;
                     math2Check(answerSheet, questionArr, scores);
                     callback(null, _currentTest, practiceid);
-                })
+                });
         }
 
     function getScaledScores(currentTest, practiceid, callback) {

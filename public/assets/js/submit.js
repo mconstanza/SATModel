@@ -41,7 +41,9 @@ $(document).on("click", "#submitForm", function() {
 
     // submit post request to /test to submit answersheet
     // data is score object from server
-    $.post('/test', answerSheet, function(data) {
+
+    var testId = $('#testId').attr('data-test');
+    $.post('/test/' + testId, answerSheet, function(data) {
         window.location = data.url;
 
     });
@@ -58,7 +60,7 @@ $(document).on("click", ".ansbutton", function() {
 
     var quesSearch = "#" + questionID;
 
-    
+
 
     //changing status of button
     if($(this).data("selected") == false){
