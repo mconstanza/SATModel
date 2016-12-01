@@ -12,22 +12,24 @@ var SAT = require('../js/sat_scoring.js');
 
 // create the express router
 var router = express.Router();
+// var user = req.session.passport.user;
+
 
 // DEVELOPMENT -- remove in final product
 // Grabbing our users along with the tests they take
-router.get('/users', function(req, res) {
-    models.User.findAll({
-        include: [models.StudentAnswer]
-    })
-        .then(function(users) {
-            for(var i = 0; i < users.length; i++){
-                console.log(users[i]);
-            }
-            console.log(StudentAnswer);
-            // console.log(users);
-            res.send(users);
-        });
-});
+// router.get('/users', function(req, res) {
+//     models.User.findAll({
+//         include: [models.StudentAnswer]
+//     })
+//         .then(function(users) {
+//             for(var i = 0; i < users.length; i++){
+//                 console.log(users[i]);
+//             }
+//             console.log(StudentAnswer);
+//             // console.log(users);
+//             res.send(users);
+//         });
+// });
 
 // If we are passing in a request to lookup the user then we use this method.
 // router.get('/api/:student?', function(req, res) {
@@ -48,12 +50,34 @@ router.get('/users', function(req, res) {
 // render a user's profile -- REQUIRES AUTH
 router.get('/profile', isLoggedIn, function(req, res) {
     // replace with handlebars stuff
-    console.log(req.user);
-    res.render('user', {
-        user: req.user
-    });
+     // .then(function(tests){
+    var thisUser = req.user;
+    var userID = req.user.id;
+    // var userArray = [];
+    // var testArray = [];
+    console.log(userID);
 
-});
+    models.SubmittedTest.findAll({
+
+
+    }).then(function(tests) {
+
+    for(var i = 0; i < tests.length; i++){
+        var testId = tests[i];
+        var submittedUser = tests[i].UserId;
+        console.log(submittedUser);
+        if(userID == submittedUser){
+            res.render('user', {
+            user: req.user,
+            test : testId,
+    });
+        }
+       }
+        // test: req.test
+    });
+  });
+    
+// });
 //=============================================
 // LOGIN
 //=============================================
