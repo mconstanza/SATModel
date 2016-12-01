@@ -41,7 +41,7 @@ router.post('/test/:id', function(req, res) {
         mathTest: 0,
         readingScaled: 0,
         mathScaled: 0,
-        
+
         expressionOfIdeasRaw: 0,
         standardEnglishConventionsRaw: 0,
         heartOfAlgebraRaw: 0,
@@ -177,21 +177,21 @@ router.post('/test/:id', function(req, res) {
                     }
 
                     //crossscore/category scaled scores
-                     if (scaledScores[i].rawScore == scores.wordsInContextRaw) 
+                     if (scaledScores[i].rawScore == scores.wordsInContextRaw)
                             scores.wordsInContext = scaledScores[i].wordsInContext;
-                     if (scaledScores[i].rawScore == scores.standardEnglishConventionsRaw) 
-                        scores.standardEnglishConventions = scaledScores[i].stdEnglishConventions;
-                     if (scaledScores[i].rawScore == scores.expressionOfIdeasRaw) 
-                        scores.expressionOfIdeas = scaledScores[i].expressionIdeas;
-                     if (scaledScores[i].rawScore == scores.heartOfAlgebraRaw) 
-                        scores.heartOfAlgebra = scaledScores[i].heartOfAlebra;
-                     if (scaledScores[i].rawScore == scores.problemSolvingDataAnalysisRaw) 
+                     if (scaledScores[i].rawScore == scores.standardEnglishConventionsRaw)
+                        scores.standardEnglishConventions = scaledScores[i].standardEnglishConventions;
+                     if (scaledScores[i].rawScore == scores.expressionOfIdeasRaw)
+                        scores.expressionOfIdeas = scaledScores[i].expressionOfIdeas;
+                     if (scaledScores[i].rawScore == scores.heartOfAlgebraRaw)
+                        scores.heartOfAlgebra = scaledScores[i].heartOfAlgebra;
+                     if (scaledScores[i].rawScore == scores.problemSolvingDataAnalysisRaw)
                         scores.problemSolvingDataAnalysis = scaledScores[i].problemSolvingDataAnalysis;
                      if (scaledScores[i].rawScore == scores.passportToAdvMathRaw)
                         scores.passportToAdvMath = scaledScores[i].passportToAdvMath;
                      if (scaledScores[i].rawScore == scores.commandOfEvidenceRaw)
                         scores.commandOfEvidence = scaledScores[i].commandOfEvidence;
-                     if (scaledScores[i].rawScore == scores.historyRaw) 
+                     if (scaledScores[i].rawScore == scores.historyRaw)
                         scores.history= scaledScores[i].history;
                      if (scaledScores[i].rawScore == scores.scienceRaw)
                         scores.science = scaledScores[i].science;

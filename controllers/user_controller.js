@@ -91,7 +91,7 @@ models.User.findAll({
 
     }
   // console.log(user.firstname);
-})
+});
 
 //=============================================
 // SIGNUP
