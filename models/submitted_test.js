@@ -9,8 +9,10 @@ module.exports = function(sequelize, DataTypes) {
     readingTest: DataTypes.INTEGER,
     writingTest: DataTypes.INTEGER,
     mathTest: DataTypes.DECIMAL,
+    
     readingScaled: DataTypes.INTEGER,
     mathScaled: DataTypes.INTEGER,
+
     expressionOfIdeas: DataTypes.INTEGER,
     standardEnglishConventions: DataTypes.INTEGER,
     heartOfAlgebra: DataTypes.INTEGER,
