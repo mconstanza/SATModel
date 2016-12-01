@@ -11,7 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     subScore: {type: DataTypes.STRING,
                allowNull: true},
     section: DataTypes.STRING,
-    questionType: DataTypes.STRING
+    questionType: DataTypes.STRING,
+    answerType: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

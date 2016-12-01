@@ -12,38 +12,7 @@ var SAT = require('../js/sat_scoring.js');
 
 // create the express router
 var router = express.Router();
-// var user = req.session.passport.user;
 
-
-// DEVELOPMENT -- remove in final product
-// Grabbing our users along with the tests they take
-// router.get('/users', function(req, res) {
-//     models.User.findAll({
-//         include: [models.StudentAnswer]
-//     })
-//         .then(function(users) {
-//             for(var i = 0; i < users.length; i++){
-//                 console.log(users[i]);
-//             }
-//             console.log(StudentAnswer);
-//             // console.log(users);
-//             res.send(users);
-//         });
-// });
-
-// If we are passing in a request to lookup the user then we use this method.
-// router.get('/api/:student?', function(req, res) {
-//     // var thisUser = req.params.users;
-//     models.User.findAll({
-//         include: [models.StudentAnswer]
-//     })
-//         .then(function(student) {
-//             var user = req.params.student;
-//             console.log(StudentAnswer);
-//             console.log(student);
-//             res.send(student);
-//         });
-// });
 //=============================================
 // USER PROFILE
 //=============================================
@@ -337,14 +306,7 @@ router.get('/', function(req, res) {
     res.sendFile(process.cwd() + '/public/landing.html');
 });
 
-//===================================================================
-// Utility Functions
-//===================================================================
 
-function calculatePercent(part, whole) {
-    var percent = Math.floor((part / whole) * 100);
-    return percent;
-}
 
 
 module.exports = router;
