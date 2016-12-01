@@ -1,4 +1,5 @@
 <div class = "container">
+
   <!--scaled scores-->
   <div class = "row">
     <div class = "col-lg-6-offset-3 text-center">
@@ -6,23 +7,25 @@
     </div>
   </div>
   <div class = "row">
-    <!--math scaled score out of 800-->
-    <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="mathScaled">
-      <p>Math</p>
-      <p>{{scores.mathScaled}}</p>
-    </div>
-    <!-- reading scaled score out of 800 -->
+
+    <!--reading scaled score out of 800-->
     <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="readingScaled">
       <p>Reading</p>
       <p>{{scores.readingScaled}}</p>
     </div>
+
+    <!-- math scaled score out of 800 -->
+    <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="mathScaled">
+      <p>Math</p>
+      <p>{{scores.mathScaled}}</p>
+    </div>
   </div>
 
-  <!-- test scores -->
+  <!--________________ test scores _______________-->
   <div class = "row">
     <!-- reading score out of 40 -->
     <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="readingTestScore">
-      <p>Reading</p>
+      <p>Reading Test</p>
       <p>{{scores.readingTest}}</p>
       
       <!--reading progress bar-->
@@ -36,7 +39,7 @@
     
     <!-- writing score out of 40 -->
     <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="writingTestScore">
-      <p>Writing</p>
+      <p>Writing Test</p>
       <p>{{scores.writingTest}}</p>
     
 
@@ -44,18 +47,18 @@
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.writingTest}}
       aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.writnigTest}}/40
+      {{scores.writingTest}}/40
        </div>
        </div>
     </div>
 
     <!-- math score out of 40 -->
     <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScore">
-      <p>Math</p>
+      <p>Math Test</p>
       <p>{{scores.mathTest}}</p>
     
 
-    <!--reading progress bar-->
+    <!--math progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.mathTest}}
       aria-valuemin="0" aria-valuemax="40" style="width:0%">
@@ -65,5 +68,150 @@
       </div>
 
   </div>
+  {{!--  --}}
+  {{!--  --}}
+  {{!--  --}}
+<div class = "row">
+<!-- reading + writing -->
+    <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+     
+<!-- Expression of Ideas score-->
+      <p>Expression of Ideas</p>
+      <p>{{scores.expressionOfIdeas}}</p>
+      
+<!--expressionOfIdeas progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.expressionOfIdeas}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.expressionOfIdeas}}/40
+       </div>
+       </div>
+       </div>
+
+    <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+<!-- standardEnglishConventions score-->
+      <p>Standard English Conventions</p>
+      <p>{{scores.standardEnglishConventions}}</p>
+      
+<!--standardEnglishConventions progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.standardEnglishConventions}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.standardEnglishConventions}}/40
+       </div>
+      </div>    
+    </div>
+
+        <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+<!-- wordsInContext score-->
+      <p>Words In Context</p>
+      <p>{{scores.wordsInContext}}</p>
+      
+<!--wordsInContext progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.wordsInContext}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.wordsInContext}}/40
+       </div>
+      </div>    
+    </div>
+
+        <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+<!-- commandOfEvidence score-->
+      <p>Command Of Evidence</p>
+      <p>{{scores.commandOfEvidence}}</p>
+      
+<!--commandOfEvidence progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.commandOfEvidence}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.commandOfEvidence}}/40
+       </div>
+      </div>    
+    </div>
 </div>
 
+{{!-- Math --}}
+<div class = "row">
+<!-- math -->
+    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScores">
+     
+<!-- heartOfAlgebra score-->
+      <p>Heart Of Algebra</p>
+      <p>{{scores.heartOfAlgebra}}</p>
+      
+<!--heartOfAlgebra progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.heartOfAlgebra}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.heartOfAlgebra}}/40
+       </div>
+       </div>
+       </div>
+
+       <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScores">
+     
+<!-- problemSolvingDataAnalysis score-->
+      <p>Problem Solving Data Analysis</p>
+      <p>{{scores.problemSolvingDataAnalysis}}</p>
+      
+<!--problemSolvingDataAnalysis progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.problemSolvingDataAnalysis}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.problemSolvingDataAnalysis}}/40
+       </div>
+       </div>
+       </div>
+
+       <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScores">
+     
+<!-- passportToAdvMath-->
+      <p>Passport To Advance Math</p>
+      <p>{{scores.passportToAdvMath}}</p>
+      
+<!--passportToAdvMath progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.passportToAdvMath}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.passportToAdvMath}}/40
+       </div>
+       </div>
+       </div>
+  </div>
+    
+
+{{!-- History + Science --}}
+<div class = "row">
+<!-- math -->
+    <div class = "col-lg-6 scoreDivBot scoreDiv text-center" id="historyScienceTestScores">
+     
+<!-- History score-->
+      <p>History</p>
+      <p>{{scores.history}}</p>
+      
+<!--history progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.history}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.history}}/40
+       </div>
+       </div>
+       </div>
+
+       <div class = "col-lg-6 scoreDivBot scoreDiv text-center" id="mathTestScores">
+     
+<!-- science score-->
+      <p>Science</p>
+      <p>{{scores.science}}</p>
+      
+<!--science progress bar-->
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.science}}
+      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      {{scores.science}}/40
+       </div>
+       </div>
+       </div>
+  </div>
+    </div> {{!-- container close --}}
