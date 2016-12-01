@@ -49,34 +49,64 @@ var router = express.Router();
 //=============================================
 // render a user's profile -- REQUIRES AUTH
 router.get('/profile', isLoggedIn, function(req, res) {
-    // replace with handlebars stuff
-     // .then(function(tests){
+
     var thisUser = req.user;
     var userID = req.user.id;
-    // var userArray = [];
-    // var testArray = [];
-    console.log(userID);
+
 
     models.SubmittedTest.findAll({
 
 
     }).then(function(tests) {
 
-    for(var i = 0; i < tests.length; i++){
-        var testId = tests[i];
-        var submittedUser = tests[i].UserId;
-        console.log(submittedUser);
-        if(userID == submittedUser){
-            res.render('user', {
-            user: req.user,
-            test : testId,
-    });
+        for (var i = 0; i < tests.length; i++) {
+            console.log('test: ' + tests[i]);
+            var test = tests[i];
+            if (test.id == 1) {
+                test.name = "College Board Practice Test 1";
+            }
+            if (test.id == 2) {
+                test.name = "College Board Practice Test 2";
+            }
+            if (test.id == 3) {
+                test.name = "College Board Practice Test 3";
+            }
+            if (test.id == 4) {
+                test.name = "College Board Practice Test 4";
+            }
+            if (test.id == 5) {
+                test.name = "College Board Practice Test 5";
+            }
+            if (test.id == 6) {
+                test.name = "College Board Practice Test 6";
+            }
+
+            // Getting scaled score perecentages and adding to object for rendering
+            test.readingTestPercent = calculatePercent(test.readingTest, 40);
+            test.writingTestPercent = calculatePercent(test.writingTest, 40);
+            test.mathTestPercent = calculatePercent(test.mathTest, 40);
+            test.expressionOfIdeasPercent = calculatePercent(test.expressionOfIdeas, 15);
+            test.standardEnglishConventionsPercent = calculatePercent(test.standardEnglishConventions, 15);
+            test.heartOfAlgebraPercent = calculatePercent(test.heartOfAlgebra, 15);
+            test.problemSolvingDataAnalysisPercent = calculatePercent(test.problemSolvingDataAnalysis, 15);
+            test.passportToAdvMathPercent = calculatePercent(test.passportToAdvMath, 15);
+            test.wordsInContextPercent = calculatePercent(test.wordsInContext, 15);
+            test.commandOfEvidencePercent = calculatePercent(test.commandOfEvidence, 15);
+            test.historyPercent = calculatePercent(test.history, 40);
+            test.sciencePercent = calculatePercent(test.science, 40);
+
+            var submittedUser = tests[i].UserId;
+            // console.log(submittedUser);
+            if (userID == submittedUser) {
+                res.render('user', {
+                    user: req.user,
+                    test: test,
+                });
+            }
         }
-       }
-        // test: req.test
     });
-  });
-    
+});
+
 // });
 //=============================================
 // LOGIN
@@ -105,16 +135,16 @@ router.post('/login', passport.authenticate('local-login', {
 
 models.User.findAll({
 
-}).then(function(user){
+}).then(function(user) {
 
-    for(var i = 0; i < user.length; i++){
+    for (var i = 0; i < user.length; i++) {
         // console.log(user[i]);
         console.log(user[i].dataValues.firstName);
         console.log(user[i].dataValues.lastName);
         console.log(user[i].dataValues.email);
 
     }
-  // console.log(user.firstname);
+    // console.log(user.firstname);
 });
 
 //=============================================
@@ -178,12 +208,12 @@ router.post('/forgot', function(req, res) {
                         console.log('\n Saving user reset token');
                         done(token, user);
                     }).catch(function(err) {
-                      console.error(err);
+                        console.error(err);
 
                     });
 
                 }
-              });
+            });
             // }).catch(function(err){
             //   console.log('\nError: ' + err.stack);
             // });
@@ -326,7 +356,14 @@ router.get('/', function(req, res) {
     res.sendFile(process.cwd() + '/public/landing.html');
 });
 
+//===================================================================
+// Utility Functions
+//===================================================================
 
+function calculatePercent(part, whole) {
+    var percent = Math.floor((part / whole) * 100);
+    return percent;
+}
 
 
 module.exports = router;
