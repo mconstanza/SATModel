@@ -50,12 +50,12 @@ var router = express.Router();
 // render a user's profile -- REQUIRES AUTH
 router.get('/profile', isLoggedIn, function(req, res) {
 
-    var thisUser = req.user;
-    var userID = req.user.id;
-
+    var user = req.user;
 
     models.SubmittedTest.findAll({
-
+        where: {
+            UserId: user.id
+        }
 
     }).then(function(tests) {
 
@@ -80,30 +80,11 @@ router.get('/profile', isLoggedIn, function(req, res) {
             if (test.id == 6) {
                 test.name = "College Board Practice Test 6";
             }
-
-            // Getting scaled score perecentages and adding to object for rendering
-            test.readingTestPercent = calculatePercent(test.readingTest, 40);
-            test.writingTestPercent = calculatePercent(test.writingTest, 40);
-            test.mathTestPercent = calculatePercent(test.mathTest, 40);
-            test.expressionOfIdeasPercent = calculatePercent(test.expressionOfIdeas, 15);
-            test.standardEnglishConventionsPercent = calculatePercent(test.standardEnglishConventions, 15);
-            test.heartOfAlgebraPercent = calculatePercent(test.heartOfAlgebra, 15);
-            test.problemSolvingDataAnalysisPercent = calculatePercent(test.problemSolvingDataAnalysis, 15);
-            test.passportToAdvMathPercent = calculatePercent(test.passportToAdvMath, 15);
-            test.wordsInContextPercent = calculatePercent(test.wordsInContext, 15);
-            test.commandOfEvidencePercent = calculatePercent(test.commandOfEvidence, 15);
-            test.historyPercent = calculatePercent(test.history, 40);
-            test.sciencePercent = calculatePercent(test.science, 40);
-
-            var submittedUser = tests[i].UserId;
-            // console.log(submittedUser);
-            if (userID == submittedUser) {
-                res.render('user', {
-                    user: req.user,
-                    test: test,
-                });
-            }
         }
+        res.render('user', {
+            user: user,
+            tests: tests
+        });
     });
 });
 

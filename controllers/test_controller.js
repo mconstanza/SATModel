@@ -252,6 +252,21 @@ router.get('/report/:id', function(req, res) {
 
     }).then(function(test) {
       console.log('\nscores in report route: ' + JSON.stringify(test));
+      
+      // Getting scaled score perecentages and adding to object for rendering
+      test.readingTestPercent = calculatePercent(test.readingTest, 40);
+      test.writingTestPercent = calculatePercent(test.writingTest, 40);
+      test.mathTestPercent = calculatePercent(test.mathTest, 40);
+      test.expressionOfIdeasPercent = calculatePercent(test.expressionOfIdeas, 15);
+      test.standardEnglishConventionsPercent = calculatePercent(test.standardEnglishConventions, 15);
+      test.heartOfAlgebraPercent = calculatePercent(test.heartOfAlgebra, 15);
+      test.problemSolvingDataAnalysisPercent = calculatePercent(test.problemSolvingDataAnalysis, 15);
+      test.passportToAdvMathPercent = calculatePercent(test.passportToAdvMath, 15);
+      test.wordsInContextPercent = calculatePercent(test.wordsInContext, 15);
+      test.commandOfEvidencePercent = calculatePercent(test.commandOfEvidence, 15);
+      test.historyPercent = calculatePercent(test.history, 40);
+      test.sciencePercent = calculatePercent(test.science, 40);
+
       res.render('report', {
           layout: 'reportLayout.handlebars',
           scores: test
