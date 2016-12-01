@@ -1,5 +1,6 @@
 body {
     font-family: "Lato", sans-serif;
+    background-image: url("images/background.png");
 }
 
 .sidenav {
@@ -56,6 +57,24 @@ body {
     margin:left 20px;
 }
 
-body{
-    background-image: url("images/background.png");
+
+
+
+
+#profileTable
+{
+    width:80%;
+    border: solid 1px;
+}
+
+.userTableHeader{
+    height:50px;
+    border: solid 1px;
+    text-align: center;
+}
+
+.userTable{
+    height: 30px;
+    border: solid 1px;
+    text-align: center;
 }
