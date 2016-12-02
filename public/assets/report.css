@@ -2,7 +2,7 @@
   min-height: 200px;
   padding-top: 50px;
   padding-bottom: 50px;
-  color: white;
+  color:  #ccccb3;
   border-size: 1px;
 }
 
@@ -31,6 +31,10 @@
 
 p{
   font-family: 'Lato', sans-serif;
-  color: white;
+  color: #337ab7;
 }
 
+i{
+  font-size: 35px;
+  color: navy;
+}
