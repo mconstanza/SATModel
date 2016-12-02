@@ -1,0 +1,21 @@
+.navbar{
+  background: rgba(51,122,183,0.5);
+  max-width: 100%;
+}
+
+.navbar-nav>li{
+  opacity: 1;
+  font-family: 'Poiret One', cursive;
+}
+
+.navbar-default .navbar-nav>li>a
+{
+  color: white;
+  max-width: 100%;
+}
+
+#navbarTitle
+{
+  color:white;
+  font-family: 'Abril Fatface', cursive;
+}

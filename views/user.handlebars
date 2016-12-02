@@ -1,28 +1,9 @@
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">Profile</a>
-  <a href="#">Test Results</a>
-  <a href="#">College Information</a>
-  <a href="#">Contact</a>
-</div>
+
 <div class="row">
-      <div class="col-lg-2" id="navModalText">
-        
-          <span style="font-size:30px;cursor:pointer;color:rgb(122,144,141)" onclick="openNav()" >&#9776; Profile</span>
-
-          <script>
-          function openNav() {
-              document.getElementById("mySidenav").style.width = "250px";
-          }
-
-          function closeNav() {
-              document.getElementById("mySidenav").style.width = "0";
-          }
-          </script>
-      </div>
-      <div class="col-lg-9 column" id="profileInfo">
+      
+      <div class="col-lg-8-offset-2 column animated fadeIn" id="profileInfo">
           <h1 class="text-center"><b>Welcome, {{user.firstName}}</b></h1>
-            <center><img src="assets/images/profileplaceholder.jpg"></center>
+            <center><img id="profilePhoto" src="assets/images/profileplaceholder.jpg"></center>
           <div class="text-center" id="userInformation">
           <h3><b> Your information:<b></h3>
           <p>First name: {{user.firstName}}</p>
@@ -44,9 +25,8 @@
           </table></center>
 
       </div>
+      <br>
 
-
-      <div class="col-lg-1"></div>
 </div>
         
 
