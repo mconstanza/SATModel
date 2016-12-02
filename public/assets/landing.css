@@ -1,3 +1,7 @@
+body{
+  background-image: url("images/background.png");
+}
+
 img {
   max-width: 100%;
 }
@@ -6,7 +10,7 @@ img {
   max-width: 100%;
   margin-top: 20%;
   margin-bottom: 10px;
-  max-height: 100%;
+  max-height: 100%
 }
 
 .column{
@@ -24,9 +28,12 @@ img {
 }
 
 #startButton{
-  border-radius: 100px;
+  border-radius: 10px;
+  width: 150px;
   background-color:white;
+  border: solid 1px;
   font-size: 20px;
+  font-family: 'Poiret One', cursive;
 }
 
 .row{
@@ -36,4 +43,8 @@ img {
 #loginDiv{
   margin-bottom: 5px;
 }
+
+
+
+  
 

@@ -1,8 +1,14 @@
+body{
+  background-image: url("images/background.png");
+}
+
+
+
 .scoreDiv{
   min-height: 200px;
   padding-top: 50px;
   padding-bottom: 50px;
-  color:  #ccccb3;
+  color:  #337ab7;
   border-size: 1px;
 }
 
@@ -12,10 +18,11 @@
 
 }
 
-#reportHeader{
-  color: #78908C;.
-  font-size: 50px;
+.scoreDivBot{
+  font-family: 'Poiret One', cursive;
+  color:  #337ab7;
 }
+
 
 .mainScore{
   font-size: 100px;
@@ -29,12 +36,20 @@
   background-color:  #b6cee2;
 }
 
-p{
-  font-family: 'Lato', sans-serif;
-  color: #337ab7;
+
+.scaledScores{
+  font-family: 'Poiret One', cursive;
 }
 
-i{
-  font-size: 35px;
-  color: navy;
+.reportHeader{
+  color: #337ab7;
+  font-size: 80px;
+  font-family: 'Poiret One', cursive;
 }
+
+#reportUser{
+  font-family: 'Poiret One', cursive;
+  color:  #337ab7;
+  font-size: 14px;
+}
+

@@ -1,21 +1,26 @@
-<div class = "container">
+<div class = "container" id="reportContent">
 
   <!--scaled scores-->
   <div class = "row">
-    <div class = "col-lg-6-offset-3 text-center">
-      <i>{{user.firstName}} {{user.lastName}} Report</i>
+      <div class = "col-lg-12 text-center reportHeader">
+      <p>Your Scores</p>      
+      <div class="text-center" id= "reportUser">
+            <b><p>Name: {{user.firstName}} {{user.lastName}}</p>
+            <p>Email: {{user.email}}</p></b>
+      </div> 
+       
     </div>
   </div>
   <div class = "row">
 
     <!--reading scaled score out of 800-->
-    <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="readingScaled">
+    <div class = "col-lg-6 scoreDivTop scoreDiv text-center scaledScores">
       <p>Reading</p>
       <p>{{scores.readingScaled}}</p>
     </div>
 
     <!-- math scaled score out of 800 -->
-    <div class = "col-lg-6 scoreDivTop scoreDiv text-center" id="mathScaled">
+    <div class = "col-lg-6 scoreDivTop scoreDiv text-center scaledScores">
       <p>Math</p>
       <p>{{scores.mathScaled}}</p>
     </div>
