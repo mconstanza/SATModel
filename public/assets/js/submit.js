@@ -104,3 +104,11 @@ $(document).on("change", ".gridin-dropdown", function() {
     // set the answer to a data attribute in the dropdown box
     $(this).parent().attr("data-ans", answer);
 });
+
+
+$("option").on("", function() {
+    console.log(this)
+    var changeVal = $(this).val();
+    console.log(changeVal)
+    
+})
