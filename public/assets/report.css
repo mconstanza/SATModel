@@ -1,55 +1,95 @@
-body{
-  background-image: url("images/background.png");
+body {
+    background-image: url("images/background.png");
 }
 
-
-
-.scoreDiv{
-  min-height: 200px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  color:  #337ab7;
-  border-size: 1px;
+.scoreDiv h1 {
+    font-size: 32px;
+    font-family: 'Poiret One', cursive;
+    font-weight: bold;
 }
 
-.scoreDivTop{
-  font-size: 40px;
-  border-bottom-style: solid;
-
+.scoreDiv h2 {
+    font-weight: bold;
 }
 
-.scoreDivBot{
-  font-family: 'Poiret One', cursive;
-  color:  #337ab7;
+.header {
+    font-family: 'Poiret One', cursive;
+    color: #337ab7;
+    padding: 10px 0 30px 0;
+    font-weight: bold;
 }
 
-
-.mainScore{
-  font-size: 100px;
+#name {
+    font-weight: bold;
+    font-size: 28px;
 }
 
-.testScore{
-  border-bottom-style: solid;
+.scoreDiv {
+    color: #337ab7;
+    border-size: 1px;
+    font-weight: bold;
 }
 
-.progress{
-  background-color:  #b6cee2;
+.scoreDiv p {
+    font-size: 16px;
+    font-family: 'Poiret One', cursive;
 }
 
-
-.scaledScores{
-  font-family: 'Poiret One', cursive;
+.mainScore {
+    font-size: 100px;
 }
 
-.reportHeader{
-  color: #337ab7;
-  font-size: 80px;
-  font-family: 'Poiret One', cursive;
+.progress {
+    background-color: #b6cee2;
 }
 
-#reportUser{
-  font-family: 'Poiret One', cursive;
-  color:  #337ab7;
-  font-size: 14px;
+.scaledScores {
+    font-family: 'Poiret One', cursive;
 }
 
+.reportHeader {
+    color: #337ab7;
+    font-size: 80px;
+    font-family: 'Poiret One', cursive;
+}
+
+#reportUser {
+    font-family: 'Poiret One', cursive;
+    /*color: #337ab7;*/
+    color: black;
+    font-size: 14px;
+}
+
+#test-row {
+    border-bottom: solid #337ab7 3px;
+    padding-bottom: 20px;
+}
+
+#subscore-row {
+    border-bottom: solid #337ab7 3px;
+    padding: 0px 0 30px 0;
+}
+
+#subscore-row h1 {
+    font-weight: bold;
+}
+
+#crossTestRow h1 {
+    font-weight: bold;
+}
+
+.math {
+    color: #930000;
+}
+
+.mathProgress {
+  background-color: #930000;
+}
+
+#scoreTotal{
+  color: black;
+}
+
+#title {
+  color: black;
+}

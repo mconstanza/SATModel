@@ -248,7 +248,7 @@ router.get('/report/:id', function(req, res) {
     var testId = req.params.id;
     var user = req.user;
 
-    console.log('\nid: ' + testId);
+    // console.log('\nid: ' + testId);
 
     models.SubmittedTest.findOne({
         where: {
@@ -256,7 +256,7 @@ router.get('/report/:id', function(req, res) {
         }
 
     }).then(function(test) {
-        console.log('\nscores in report route: ' + JSON.stringify(test));
+
 
         // Getting scaled score perecentages and adding to object for rendering
         test.readingTestPercent = calculatePercent(test.readingTest, 40);
@@ -271,6 +271,10 @@ router.get('/report/:id', function(req, res) {
         test.commandOfEvidencePercent = calculatePercent(test.commandOfEvidence, 15);
         test.historyPercent = calculatePercent(test.history, 40);
         test.sciencePercent = calculatePercent(test.science, 40);
+
+        test.total = test.readingScaled + test.mathScaled;
+
+        console.log('\nscores in report route: ' + JSON.stringify(test));
 
         res.render('report', {
             layout: 'reportLayout.handlebars',
