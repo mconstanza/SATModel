@@ -246,6 +246,7 @@ router.post('/test/:id', function(req, res) {
 router.get('/report/:id', function(req, res) {
 
     var testId = req.params.id;
+    var user = req.user;
 
     console.log('\nid: ' + testId);
 
@@ -273,7 +274,8 @@ router.get('/report/:id', function(req, res) {
 
         res.render('report', {
             layout: 'reportLayout.handlebars',
-            scores: test
+            scores: test,
+            user: user
         });
     });
 
@@ -359,8 +361,8 @@ function math1Check(answerSheet, questions, scores) { // loop through the studen
             if (questions[j].questionType == "Open") {
                 // special logic for grid ins
                 if (questions[j].answerType == "fraction") {
-                  // fraction answer possibilities are separated by commas in the database
-                    var answers = questions[j].split(',');
+                    // fraction answer possibilities are separated by commas in the database
+                    var answers = questions[j].answer.split(',');
                     for (var k = 0; k < answers.length; k++) {
                         if (answerSheet.math1[i] == answers[k]) {
                             scores.math1Raw += 1;
@@ -369,14 +371,24 @@ function math1Check(answerSheet, questions, scores) { // loop through the studen
                     }
                 }
                 if (questions[j].answerType == "range") {
-                  // lower and upper range limits are separated by commas in the database
-                    var answers = questions[j].split(',');
+                    // lower and upper range limits are separated by commas in the database
+                    var answers = questions[j].answer.split(',');
 
                     if (answerSheet.math1[i] > answers[0] && answerSheet.math1[i] < answers[1]) {
                         scores.math1Raw += 1;
                         calcCrossScore(questions[j], scores);
                     }
 
+                }
+                if (questions[j].answerType == "multiple") {
+                    // fraction answer possibilities are separated by commas in the database
+                    var answers = questions[j].answer.split(',');
+                    for (var k = 0; k < answers.length; k++) {
+                        if (answerSheet.math1[i] == answers[k]) {
+                            scores.math1Raw += 1;
+                            calcCrossScore(questions[j], scores);
+                        }
+                    }
                 }
             }
             // if the questions numbers and answers match, add 1 raw point
@@ -402,8 +414,8 @@ function math2Check(answerSheet, questions, scores) {
                 // special logic for grid ins
                 if (questions[j].answerType == "fraction") {
 
-                  // fraction answer possibilities are separated by commas in the database
-                    var answers = questions[j].split(',');
+                    // fraction answer possibilities are separated by commas in the database
+                    var answers = questions[j].answer.split(',');
                     for (var k = 0; k < answers.length; k++) {
                         if (answerSheet.math2[i] == answers[k]) {
                             scores.math2Raw += 1;
@@ -412,14 +424,24 @@ function math2Check(answerSheet, questions, scores) {
                     }
                 }
                 if (questions[j].answerType == "range") {
-                  // lower and upper range limits are separated by commas in the database
-                    var answers = questions[j].split(',');
+                    // lower and upper range limits are separated by commas in the database
+                    var answers = questions[j].answer.split(',');
 
                     if (answerSheet.math2[i] > answers[0] && answerSheet.math2[i] < answers[1]) {
-                        scores.math1Raw += 1;
+                        scores.math2Raw += 1;
                         calcCrossScore(questions[j], scores);
                     }
 
+                }
+                if (questions[j].answerType == "multiple") {
+                    // fraction answer possibilities are separated by commas in the database
+                    var answers = questions[j].answer.split(',');
+                    for (var k = 0; k < answers.length; k++) {
+                        if (answerSheet.math2[i] == answers[k]) {
+                            scores.math2Raw += 1;
+                            calcCrossScore(questions[j], scores);
+                        }
+                    }
                 }
             }
             // if the questions numbers and answers match, add 1 raw point
