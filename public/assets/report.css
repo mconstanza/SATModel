@@ -2,7 +2,7 @@
   min-height: 200px;
   padding-top: 50px;
   padding-bottom: 50px;
-  color: #78908C;
+  color: white;
   border-size: 1px;
 }
 
@@ -27,6 +27,10 @@
 
 .progress{
   background-color:  #b6cee2;
-  
+}
+
+p{
+  font-family: 'Lato', sans-serif;
+  color: white;
 }
 
