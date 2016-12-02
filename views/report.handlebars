@@ -24,13 +24,13 @@
   <!--________________ test scores _______________-->
   <div class = "row">
     <!-- reading score out of 40 -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="readingTestScore">
+    <div class = "col-lg-4 scoreDivBot testScore scoreDiv text-center" id="readingTestScore">
       <p>Reading Test</p>
       <p>{{scores.readingTest}}</p>
       
       <!--reading progress bar-->
       <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.readingTest}}
+      <div class="progress-bar scoreTest" style="background-color: green" role="progressbar" aria-valuenow={{scores.readingTest}}
       aria-valuemin="0" aria-valuemax="40" style="width:{{scores.readingTestPercent}}%">
       {{scores.readingTest}}/40
        </div>
@@ -38,7 +38,7 @@
     </div>
     
     <!-- writing score out of 40 -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="writingTestScore">
+    <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="writingTestScore">
       <p>Writing Test</p>
       <p>{{scores.writingTest}}</p>
     
@@ -53,7 +53,7 @@
     </div>
 
     <!-- math score out of 40 -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScore">
+    <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScore">
       <p>Math Test</p>
       <p>{{scores.mathTest}}</p>
     
@@ -73,7 +73,7 @@
   {{!--  --}}
 <div class = "row">
 <!-- reading + writing -->
-    <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+    <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
      
 <!-- Expression of Ideas score-->
       <p>Expression of Ideas</p>
@@ -88,7 +88,7 @@
        </div>
        </div>
 
-    <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+    <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
 <!-- standardEnglishConventions score-->
       <p>Standard English Conventions</p>
       <p>{{scores.standardEnglishConventions}}</p>
@@ -102,7 +102,7 @@
       </div>    
     </div>
 
-        <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+        <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
 <!-- wordsInContext score-->
       <p>Words In Context</p>
       <p>{{scores.wordsInContext}}</p>
@@ -116,7 +116,7 @@
       </div>    
     </div>
 
-        <div class = "col-lg-3 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+        <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
 <!-- commandOfEvidence score-->
       <p>Command Of Evidence</p>
       <p>{{scores.commandOfEvidence}}</p>
@@ -134,7 +134,7 @@
 {{!-- Math --}}
 <div class = "row">
 <!-- math -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScores">
+    <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
      
 <!-- heartOfAlgebra score-->
       <p>Heart Of Algebra</p>
@@ -149,7 +149,7 @@
        </div>
        </div>
 
-       <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScores">
+       <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
      
 <!-- problemSolvingDataAnalysis score-->
       <p>Problem Solving Data Analysis</p>
@@ -164,7 +164,7 @@
        </div>
        </div>
 
-       <div class = "col-lg-4 scoreDivBot scoreDiv text-center" id="mathTestScores">
+       <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
      
 <!-- passportToAdvMath-->
       <p>Passport To Advance Math</p>
@@ -184,7 +184,7 @@
 {{!-- History + Science --}}
 <div class = "row">
 <!-- math -->
-    <div class = "col-lg-6 scoreDivBot scoreDiv text-center" id="historyScienceTestScores">
+    <div class = "col-lg-6 scoreDivBot scoreDiv testScore text-center" id="historyScienceTestScores">
      
 <!-- History score-->
       <p>History</p>
@@ -199,7 +199,7 @@
        </div>
        </div>
 
-       <div class = "col-lg-6 scoreDivBot scoreDiv text-center" id="mathTestScores">
+       <div class = "col-lg-6 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
      
 <!-- science score-->
       <p>Science</p>
@@ -214,4 +214,5 @@
        </div>
        </div>
   </div>
-    </div> {{!-- container close --}}
+
+  </div> {{!-- container close --}}
