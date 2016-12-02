@@ -1,5 +1,5 @@
 body {
-    
+
     background-image: url("images/background.png");
     font-family: 'Poiret One', cursive;
 }
@@ -20,12 +20,26 @@ body {
 {
     width:80%;
     border: solid 1px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+#profileTable a {
+  text-decoration: underline;
+  color: #3b7fb9;
+  font-weight: bold;
+}
+
+#profileTable h2 {
+  color: #3b7fb9;
+  font-weight: bold;
 }
 
 #profileInfo{
     color: #337AB7;
-    border-left: 1px solid;
-    padding-left: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    /*padding-left: 10px;*/
 }
 
 #profilePhoto{
