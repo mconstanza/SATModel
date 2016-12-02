@@ -31,7 +31,7 @@
       <!--reading progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.readingTest}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.readingTestPercent}}%">
       {{scores.readingTest}}/40
        </div>
        </div>
@@ -46,7 +46,7 @@
     <!--writing progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.writingTest}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.writingTestPercent}}%">
       {{scores.writingTest}}/40
        </div>
        </div>
@@ -61,7 +61,7 @@
     <!--math progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.mathTest}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.mathTestPercent}}%">
       {{scores.mathTest}}/40
        </div>
        </div>
@@ -82,8 +82,8 @@
 <!--expressionOfIdeas progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.expressionOfIdeas}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.expressionOfIdeas}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.expressionOfIdeasPercent}}%">
+      {{scores.expressionOfIdeas}}/15
        </div>
        </div>
        </div>
@@ -96,8 +96,8 @@
 <!--standardEnglishConventions progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.standardEnglishConventions}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.standardEnglishConventions}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.standardEnglishConventionsPercent}}%">
+      {{scores.standardEnglishConventions}}/15
        </div>
       </div>    
     </div>
@@ -110,8 +110,8 @@
 <!--wordsInContext progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.wordsInContext}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.wordsInContext}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.wordsInContextPercent}}%">
+      {{scores.wordsInContext}}/15
        </div>
       </div>    
     </div>
@@ -124,8 +124,8 @@
 <!--commandOfEvidence progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.commandOfEvidence}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.commandOfEvidence}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.commandOfEvidencePercent}}%">
+      {{scores.commandOfEvidence}}/15
        </div>
       </div>    
     </div>
@@ -143,8 +143,8 @@
 <!--heartOfAlgebra progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.heartOfAlgebra}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.heartOfAlgebra}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.heartOfAlgebraPercent}}%">
+      {{scores.heartOfAlgebra}}/15
        </div>
        </div>
        </div>
@@ -158,8 +158,8 @@
 <!--problemSolvingDataAnalysis progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.problemSolvingDataAnalysis}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.problemSolvingDataAnalysis}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.problemSolvingDataAnalysisPercent}}%">
+      {{scores.problemSolvingDataAnalysis}}/15
        </div>
        </div>
        </div>
@@ -173,8 +173,8 @@
 <!--passportToAdvMath progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.passportToAdvMath}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
-      {{scores.passportToAdvMath}}/40
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.passportToAdvMathPercent}}%">
+      {{scores.passportToAdvMath}}/15
        </div>
        </div>
        </div>
@@ -193,7 +193,7 @@
 <!--history progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.history}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.historyPercent}}%">
       {{scores.history}}/40
        </div>
        </div>
@@ -208,7 +208,7 @@
 <!--science progress bar-->
       <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{scores.science}}
-      aria-valuemin="0" aria-valuemax="40" style="width:0%">
+      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.sciencePercent}}%">
       {{scores.science}}/40
        </div>
        </div>
