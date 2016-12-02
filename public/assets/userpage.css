@@ -1,49 +1,28 @@
 body {
     font-family: "Lato", sans-serif;
     background-image: url("images/background.png");
+    
+    color:white;
 }
 
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(122,144,141);
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+#pageName{
+    color:white;
 }
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: white;
-    display: block;
-    transition: 0.3s
+.navbar{
+    background-color:#337ab7;
+    border:none;
+    
 }
 
-.sidenav a:hover, .offcanvas a:focus{
-    color: black;
+.navbar-default .navbar-nav>li>a
+{
+    color:white;
 }
 
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
 
 #profileInfo{
-	color:rgb(122,144,141);;
+	color:white;
     border-left: 1px solid;
     padding-left: 10px;
 }
@@ -58,13 +37,11 @@ body {
 }
 
 
-
-
-
 #profileTable
 {
     width:80%;
     border: solid 1px;
+    color:white;
 }
 
 .userTableHeader{
@@ -77,4 +54,11 @@ body {
     height: 30px;
     border: solid 1px;
     text-align: center;
+}
+
+#profilePicture{
+    width:250px;
+    height:250px;
+    border: solid 3px;
+    padding: 2px;
 }

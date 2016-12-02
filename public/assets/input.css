@@ -4,6 +4,7 @@
   border-radius: 15px;
   background-color: white;
   border-color: black;
+  color:black;
 }
 
 .selectedButton{
@@ -28,4 +29,5 @@ td {
 #submitForm{
   margin-top: 15px;
   margin-bottom: 35px;
+  color: black;
 }
