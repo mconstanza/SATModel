@@ -1,223 +1,266 @@
-<div class = "container" id="reportContent">
+<div class="container" id="reportContent">
 
-  <!--scaled scores-->
-  <div class = "row">
-      <div class = "col-lg-12 text-center reportHeader">
-      <p>Your Scores</p>      
-      <div class="text-center" id= "reportUser">
-            <b><p>Name: {{user.firstName}} {{user.lastName}}</p>
-            <p>Email: {{user.email}}</p></b>
-      </div> 
-       
-    </div>
-  </div>
-  <div class = "row">
+    <!--scaled scores-->
+    <div class="row" id="header-row">
+        <div class="col-lg-6 text-center reportHeader">
+            <p id="title">Practice Test #{{scores.PracticeTestId}}</p>
+            <div class="text-center" id="reportUser">
+                <p id="name"> {{user.firstName}} {{user.lastName}}</p>
+            </div>
 
-    <!--reading scaled score out of 800-->
-    <div class = "col-lg-6 scoreDivTop scoreDiv text-center scaledScores">
-      <p>Reading</p>
-      <p>{{scores.readingScaled}}</p>
-    </div>
+        </div>
 
-    <!-- math scaled score out of 800 -->
-    <div class = "col-lg-6 scoreDivTop scoreDiv text-center scaledScores">
-      <p>Math</p>
-      <p>{{scores.mathScaled}}</p>
-    </div>
-  </div>
+        <div class="col-lg-6 text-center reportHeader">
 
-  <!--________________ test scores _______________-->
-  <div class = "row">
-    <!-- reading score out of 40 -->
-    <div class = "col-lg-4 scoreDivBot testScore scoreDiv text-center" id="readingTestScore">
-      <p>Reading Test</p>
-      <p>{{scores.readingTest}}</p>
-      
-      <!--reading progress bar-->
-      <div class="progress">
-      <div class="progress-bar scoreTest" style="backgrcolor: green" role="progressbar" aria-valuenow={{scores.readingTest}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.readingTestPercent}}%">
-      {{scores.readingTest}}/40
-       </div>
-       </div>
-    </div>
-    
-    <!-- writing score out of 40 -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="writingTestScore">
-      <p>Writing Test</p>
-      <p>{{scores.writingTest}}</p>
-    
+            <div class="row">
+                <div class="col-lg-12 text-center scoreDiv">
 
-    <!--writing progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.writingTest}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.writingTestPercent}}%">
-      {{scores.writingTest}}/40
-       </div>
-       </div>
+                    <h2 id="scoreTotal">Score: {{scores.total}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--reading scaled score out of 800-->
+                <div class="col-lg-6 scoreDiv text-center scaledScores">
+                    <h1>Reading</h1>
+                    <h2>{{scores.readingScaled}}</h2>
+                </div>
+
+                <!-- math scaled score out of 800 -->
+                <div class="col-lg-6 scoreDiv text-center scaledScores">
+                    <h1 class="math">Math</h1>
+                    <h2 class="math">{{scores.mathScaled}}</h2>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- math score out of 40 -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScore">
-      <p>Math Test</p>
-      <p>{{scores.mathTest}}</p>
-    
+    <hr/>
 
-    <!--math progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.mathTest}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.mathTestPercent}}%">
-      {{scores.mathTest}}/40
-       </div>
-       </div>
-      </div>
+    <!--________________ test scores _______________-->
+    <div class="row" id="test-row">
+        <!-- reading score out of 40 -->
+        <div class="col-lg-4 testScore scoreDiv text-center" id="readingTestScore">
+            <p>Reading Test</p>
 
-  </div>
-  {{!--  --}}
-  {{!--  --}}
-  {{!--  --}}
-<div class = "row">
-<!-- reading + writing -->
-    <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
-     
-<!-- Expression of Ideas score-->
-      <p>Expression of Ideas</p>
-      <p>{{scores.expressionOfIdeas}}</p>
-      
-<!--expressionOfIdeas progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.expressionOfIdeas}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.expressionOfIdeasPercent}}%">
-      {{scores.expressionOfIdeas}}/15
-       </div>
-       </div>
-       </div>
+            <!--reading progress bar-->
+            <div class="progress">
+                <div class="progress-bar scoreTest" role="progressbar" aria-valuenow= {{scores.readingTest}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.readingTestPercent}}%">
+                    {{scores.readingTest}}/40
+                </div>
 
-    <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
-<!-- standardEnglishConventions score-->
-      <p>Standard English Conventions</p>
-      <p>{{scores.standardEnglishConventions}}</p>
-      
-<!--standardEnglishConventions progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.standardEnglishConventions}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.standardEnglishConventionsPercent}}%">
-      {{scores.standardEnglishConventions}}/15
-       </div>
-      </div>    
+            </div>
+        </div>
+
+        <!-- writing score out of 40 -->
+        <div class="col-lg-4 scoreDiv testScore text-center" id="writingTestScore">
+            <p>Writing Test</p>
+
+
+            <!--writing progress bar-->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.writingTest}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.writingTestPercent}}%">
+                    {{scores.writingTest}}/40
+                </div>
+            </div>
+        </div>
+
+        <!-- math score out of 40 -->
+        <div class="col-lg-4 scoreDivBot scoreDiv testScore text-center">
+            <p class="math">Math Test</p>
+
+
+            <!--math progress bar-->
+            <div class="progress">
+                <div class="progress-bar mathProgress" role="progressbar" aria-valuenow= {{scores.mathTest}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.mathTestPercent}}%">
+                    {{scores.mathTest}}/40
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{!--  --}}
+    {{!--  --}}
+    {{!--  --}}
+
+    <div class="row" id="subscore-row">
+
+        <div class="col-lg-6 text-center">
+            <div class="row">
+
+                <div class="col-lg-12 text-center scoreDiv">
+                    <h1 class="header">Reading/Writing Subscores</h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- reading + writing -->
+                <div class="col-lg-6 scoreDivBot scoreDiv text-center">
+
+                    <!-- Expression of Ideas score-->
+                    <p>Expression of Ideas</p>
+
+                    <!--expressionOfIdeas progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.expressionOfIdeas}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.expressionOfIdeasPercent}}%">
+                            {{scores.expressionOfIdeas}}/15
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 scoreDivBot scoreDiv text-center">
+                    <!-- standardEnglishConventions score-->
+                    <p>Standard English Conventions</p>
+
+
+                    <!--standardEnglishConventions progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.standardEnglishConventions}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.standardEnglishConventionsPercent}}%">
+                            {{scores.standardEnglishConventions}}/15
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='row'>
+
+                <div class="col-lg-6 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+                    <!-- wordsInContext score-->
+                    <p>Words In Context</p>
+
+                    <!--wordsInContext progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.wordsInContext}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.wordsInContextPercent}}%">
+                            {{scores.wordsInContext}}/15
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 scoreDivBot scoreDiv text-center" id="readingwritingTestScores">
+                    <!-- commandOfEvidence score-->
+                    <p>Command Of Evidence</p>
+
+
+                    <!--commandOfEvidence progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.commandOfEvidence}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.commandOfEvidencePercent}}%">
+                            {{scores.commandOfEvidence}}/15
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {{!-- Math --}}
+        <div class="col-lg-6 scoreDivBot scoreDiv text-center">
+
+            <div class="row">
+
+                <div class="col-lg-12 text-center scoreDiv">
+                    <h1 class="header math">Math Subscores</h1>
+                </div>
+            </div>
+
+            <div class='row'>
+
+                <!-- math -->
+                <div class="col-lg-6 scoreDiv text-center">
+
+                    <!-- heartOfAlgebra score-->
+                    <p class="math">Heart Of Algebra</p>
+
+
+                    <!--heartOfAlgebra progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar mathProgress" role="progressbar" aria-valuenow= {{scores.heartOfAlgebra}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.heartOfAlgebraPercent}}%">
+                            {{scores.heartOfAlgebra}}/15
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 scoreDiv text-center" id="mathTestScores">
+
+                    <!-- problemSolvingDataAnalysis score-->
+                    <p class="math">Problem Solving Data Analysis</p>
+
+
+                    <!--problemSolvingDataAnalysis progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar mathProgress" role="progressbar" aria-valuenow= {{scores.problemSolvingDataAnalysis}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.problemSolvingDataAnalysisPercent}}%">
+                            {{scores.problemSolvingDataAnalysis}}/15
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-lg-6 scoreDiv text-center">
+
+                    <!-- passportToAdvMath-->
+                    <p class="math">Passport To Advanced Math</p>
+
+
+                    <!--passportToAdvMath progress bar-->
+                    <div class="progress">
+                        <div class="progress-bar mathProgress" role="progressbar" aria-valuenow= {{scores.passportToAdvMath}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.passportToAdvMathPercent}}%">
+                            {{scores.passportToAdvMath}}/15
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    {{!-- Empty Column --}}
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-        <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
-<!-- wordsInContext score-->
-      <p>Words In Context</p>
-      <p>{{scores.wordsInContext}}</p>
-      
-<!--wordsInContext progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.wordsInContext}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.wordsInContextPercent}}%">
-      {{scores.wordsInContext}}/15
-       </div>
-      </div>    
+
+
+    {{!-- History + Science --}}
+    <div class="row" id="crossTestRow">
+        <div class="row text-center">
+            <h1 class="header">Cross-Test Scores</h1>
+        </div>
+        <!-- math -->
+        <div class="col-lg-6 scoreDivBot scoreDiv testScore text-center" id="historyScienceTestScores">
+
+            <!-- History score-->
+            <p>History</p>
+
+
+            <!--history progress bar-->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.history}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.historyPercent}}%">
+                    {{scores.history}}/40
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
+
+            <!-- science score-->
+            <p>Science</p>
+
+
+            <!--science progress bar-->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow= {{scores.science}} aria-valuemin="0" aria-valuemax="40" style="width:{{scores.sciencePercent}}%">
+                    {{scores.science}}/40
+                </div>
+            </div>
+        </div>
     </div>
 
-        <div class = "col-lg-3 scoreDivBot scoreDiv testScore text-center" id="readingwritingTestScores">
-<!-- commandOfEvidence score-->
-      <p>Command Of Evidence</p>
-      <p>{{scores.commandOfEvidence}}</p>
-      
-<!--commandOfEvidence progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.commandOfEvidence}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.commandOfEvidencePercent}}%">
-      {{scores.commandOfEvidence}}/15
-       </div>
-      </div>    
-    </div>
-</div>
-
-{{!-- Math --}}
-<div class = "row">
-<!-- math -->
-    <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
-     
-<!-- heartOfAlgebra score-->
-      <p>Heart Of Algebra</p>
-      <p>{{scores.heartOfAlgebra}}</p>
-      
-<!--heartOfAlgebra progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.heartOfAlgebra}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.heartOfAlgebraPercent}}%">
-      {{scores.heartOfAlgebra}}/15
-       </div>
-       </div>
-       </div>
-
-       <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
-     
-<!-- problemSolvingDataAnalysis score-->
-      <p>Problem Solving Data Analysis</p>
-      <p>{{scores.problemSolvingDataAnalysis}}</p>
-      
-<!--problemSolvingDataAnalysis progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.problemSolvingDataAnalysis}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.problemSolvingDataAnalysisPercent}}%">
-      {{scores.problemSolvingDataAnalysis}}/15
-       </div>
-       </div>
-       </div>
-
-       <div class = "col-lg-4 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
-     
-<!-- passportToAdvMath-->
-      <p>Passport To Advance Math</p>
-      <p>{{scores.passportToAdvMath}}</p>
-      
-<!--passportToAdvMath progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.passportToAdvMath}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.passportToAdvMathPercent}}%">
-      {{scores.passportToAdvMath}}/15
-       </div>
-       </div>
-       </div>
-  </div>
-    
-
-{{!-- History + Science --}}
-<div class = "row">
-<!-- math -->
-    <div class = "col-lg-6 scoreDivBot scoreDiv testScore text-center" id="historyScienceTestScores">
-     
-<!-- History score-->
-      <p>History</p>
-      <p>{{scores.history}}</p>
-      
-<!--history progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.history}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.historyPercent}}%">
-      {{scores.history}}/40
-       </div>
-       </div>
-       </div>
-
-       <div class = "col-lg-6 scoreDivBot scoreDiv testScore text-center" id="mathTestScores">
-     
-<!-- science score-->
-      <p>Science</p>
-      <p>{{scores.science}}</p>
-      
-<!--science progress bar-->
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow={{scores.science}}
-      aria-valuemin="0" aria-valuemax="40" style="width:{{scores.sciencePercent}}%">
-      {{scores.science}}/40
-       </div>
-       </div>
-       </div>
-  </div>
-
-  </div> {{!-- container close --}}
+</div> {{!-- container close --}}
