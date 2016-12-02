@@ -2,7 +2,7 @@ body{
   background-image: url("images/background.png");
 }
 
-img {
+#landing-img {
   max-width: 100%;
 }
 
@@ -43,8 +43,3 @@ img {
 #loginDiv{
   margin-bottom: 5px;
 }
-
-
-
-  
-

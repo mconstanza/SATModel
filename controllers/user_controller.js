@@ -50,7 +50,7 @@ router.get('/profile', isLoggedIn, function(req, res) {
                 test.name = "College Board Practice Test 6";
             }
         }
-        res.render('user', {
+        res.render('profile', {
             user: user,
             tests: tests
         });
