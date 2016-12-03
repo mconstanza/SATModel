@@ -21,10 +21,10 @@ router.get('/test/:id', function(req, res) {
         .then(function(questions) {
 
             var hbsObj = {
-                layout: 'testLayout.handlebars',
+                layout: 'main.handlebars',
                 questions: questions
             };
-            res.render('input2', hbsObj);
+            res.render('input', hbsObj);
         });
 });
 
