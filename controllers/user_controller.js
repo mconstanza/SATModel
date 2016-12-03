@@ -30,7 +30,12 @@ router.get('/profile', isLoggedIn, function(req, res) {
 
         for (var i = 0; i < tests.length; i++) {
 
+
             var test = tests[i];
+
+            console.log('test: ' + tests[i]);
+           var test = tests[i];
+
             if (test.id == 1) {
                 test.name = "College Board Practice Test 1";
             }
@@ -63,17 +68,12 @@ router.get('/profile', isLoggedIn, function(req, res) {
 //=============================================
 // goes to login page
 router.get('/login', function(req, res) {
-    // remember to incorporate flash messages here
-    // console.log(req);
-    // res.sendFile(process.cwd() + '/public/login.html');
-    // req.session.save(function() {
+
     console.log('\nreq: ' + JSON.stringify(req.session));
-    // console.log('\nres.locals: ' + JSON.stringify(res.locals));
     res.render('login', {
         message: req.session.flash
     });
 });
-// });
 
 // user submits login data
 router.post('/login', passport.authenticate('local-login', {
@@ -305,7 +305,14 @@ router.get('/', function(req, res) {
     res.sendFile(process.cwd() + '/public/landing.html');
 });
 
+//===================================================================
+// Utility Functions
+//===================================================================
 
+function calculatePercent(part, whole) {
+    var percent = Math.floor((part / whole) * 100);
+    return percent;
+}
 
 
 module.exports = router;
