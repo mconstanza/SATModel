@@ -24,7 +24,7 @@ router.get('/test/:id', function(req, res) {
                 layout: 'testLayout.handlebars',
                 questions: questions
             };
-            res.render('input', hbsObj);
+            res.render('input2', hbsObj);
         });
 });
 

@@ -1,0 +1,65 @@
+<script type = 'text/javascript' src= "../assets/js/submit.js"></script>
+
+<div class = "container">
+    <div class="row">
+      <div class="col-lg-12">
+  
+      <h1 id="testId" data-test="{{questions.[0].PracticeTestId}}">Practice Test #{{questions.[0].PracticeTestId}}</h1>
+      <form>
+        <select>
+            <option action = "/test/1" method ="get">test1</option>
+            <option action = "/test/2" method ="get">test2</option>
+            <option action = "/test/3" method ="get">test3</option>
+            <option action = "/test/4" method ="get">test4</option>
+            <option action = "/test/5" method ="get">test5</option>
+            <option action = "/test/6" method ="get">test6</option>
+        </select>
+        <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+    <div class= "row">
+        <!--column 1-->
+        <div class="col-lg-4">
+
+        </div>
+
+        <div class="col-lg-4">
+          <table class="questions-table" align="left">
+
+            {{!-- <tbody> --}}
+            {{#each questions}}
+
+                {{#if_eq this.questionType "MC" this.section "1"}}
+                    {{> input/inputchoice}}
+
+                {{/if_eq}}
+
+            {{/each}}
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+        <div class="col-lg-4">
+
+        </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class = "row" id="submitRow">
+        <div class = "col-lg-4">
+        </div>
+        <div class = "col-lg-4 text-center">
+        <button id = "submitForm">Submit!</button>
+        </div>
+        <div class = "col-lg-4">
+        </div>
+    </div>
