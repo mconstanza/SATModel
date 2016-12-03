@@ -248,8 +248,6 @@ router.get('/report/:id', function(req, res) {
     var testId = req.params.id;
     var user = req.user;
 
-    // console.log('\nid: ' + testId);
-
     models.SubmittedTest.findOne({
         where: {
             id: testId
