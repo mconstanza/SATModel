@@ -29,7 +29,7 @@ router.get('/profile', isLoggedIn, function(req, res) {
     }).then(function(tests) {
 
         for (var i = 0; i < tests.length; i++) {
-            console.log('test: ' + tests[i]);
+
             var test = tests[i];
             if (test.id == 1) {
                 test.name = "College Board Practice Test 1";
@@ -94,7 +94,6 @@ models.User.findAll({
         console.log(user[i].dataValues.email);
 
     }
-    // console.log(user.firstname);
 });
 
 //=============================================
