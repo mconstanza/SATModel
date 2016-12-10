@@ -1,6 +1,8 @@
 #SATModel
 =========
 
+http://satmodel.herokuapp.com/
+
 SAT Practice Test Model that creates diagnostic reports based on official practice tests.
 
 ![The Standard](/public/assets/images/readme/landing2.jpg)
